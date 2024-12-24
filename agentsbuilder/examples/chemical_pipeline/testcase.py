@@ -27,7 +27,8 @@ dict_for_map_few_func = {
 }
 
 def add_answers(answers: list, path: str):
-    pd.DataFrame([answers], columns=['result', 'check_molecules']).to_excel(path)
+    llm_res, tool_res, check = answers
+    pd.DataFrame({'llm_result': llm_res, 'tool_result': tool_res, 'check': check}).to_excel(path)
 
 def validate_decompose(
     idx: int,
