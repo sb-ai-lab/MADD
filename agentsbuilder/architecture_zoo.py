@@ -91,7 +91,7 @@ class DecomposeAgent():
             max_new_tokens=512,
         )
         # decompose_model = Llama31ChatModel(
-        #     api_key='sk-or-vv-7fcc4ab944ca013feb7608fb7c0f001e5c12c32abf66233aad414183b4191a79', 
+        #     api_key='', 
         #     base_url="https://api.vsegpt.ru/v1",
         #     model="meta-llama/llama-3.1-70b-instruct",
         #     temperature=0.5, max_tokens=5000
@@ -177,9 +177,9 @@ class TwinsChain:
         funcs = []
         res_funcs = []
         for n, task in enumerate(tasks):
-            # TODO: rm if tasks more then 1
-            if n > 0:
-                continue
+            # # TODO: rm if tasks more then 1
+            # if n > 0:
+            #     continue
             try:
                 answer = self.conductor.invoke({
                     "input": task
@@ -205,7 +205,7 @@ if __name__ == "__main__":
             model="meta-llama/llama-3.1-70b-instruct",
             temperature=0.5, max_tokens=5000
         )
-    path = './agentsbuilder/experiment1.xlsx'
+    path = './agentsbuilder/experiment3.xlsx'
     questions = pd.read_excel(path).values.tolist()
     tools = [gen_mols_parkinson, gen_mols_lung_cancer, gen_mols_acquired_drug_resistance,
          gen_mols_dyslipidemia, gen_mols_multiple_sclerosis, gen_mols_alzheimer, request_mols_generation]
@@ -218,7 +218,11 @@ if __name__ == "__main__":
     for i, q in enumerate(questions):
         print('Task № ', i)
         is_match_full = True
-        tasks, funcs, store, true_mols = chain.run_chain(q[1])
+        try:
+            tasks, funcs, store, true_mols = chain.run_chain(q[1])
+        except:
+            continue
+        
         store_tools_answers.append(true_mols)
         answers_store.append(store)
         succ_dec = validate_decompose(i, tasks, path)
