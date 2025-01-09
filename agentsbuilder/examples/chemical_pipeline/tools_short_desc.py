@@ -56,7 +56,7 @@ def request_mols_generation(num: int) -> list:
 
 @tool
 def gen_mols_alzheimer(num: int) -> list:
-    """Generation of drug molecules for the treatment of Alzheimer's disease. \
+    """Generation of drug molecules for the treatment of Alzheimer's disease. 
 
     Args:
         num (int): number of molecules to generate
@@ -80,7 +80,7 @@ def gen_mols_alzheimer(num: int) -> list:
 @tool
 def gen_mols_multiple_sclerosis(num: int) -> list:
     """
-    Generation of molecules for the treatment of multiple sclerosis.\
+    Generation of molecules for the treatment of multiple sclerosis.
 
     Args:
         num (int): number of molecules to generate
@@ -105,7 +105,13 @@ def gen_mols_multiple_sclerosis(num: int) -> list:
 @tool
 def gen_mols_dyslipidemia(num: int) -> list:
     """
-    Generation of molecules for the treatment of dyslipidemia.\
+    Generation of molecules for the treatment of dyslipidemia.
+    
+    Args:
+        num (int): number of molecules to generate
+
+    Returns:
+        list: list of generated molecules
     """
     params = {
         "numb_mol": num,
@@ -122,7 +128,13 @@ def gen_mols_dyslipidemia(num: int) -> list:
 @tool
 def gen_mols_acquired_drug_resistance(num: int) -> list:
     """
-    Generation of molecules for acquired drug resistance. \
+    Generation of molecules for acquired drug resistance.
+    
+    Args:
+        num (int): number of molecules to generate
+
+    Returns:
+        list: list of generated molecules
     """
     params = {
         "numb_mol": num,
@@ -139,7 +151,13 @@ def gen_mols_acquired_drug_resistance(num: int) -> list:
 @tool
 def gen_mols_lung_cancer(num: int) -> list:
     """
-    Generation of molecules for the treatment of lung cancer. \
+    Generation of molecules for the treatment of lung cancer.
+    
+    Args:
+        num (int): number of molecules to generate
+
+    Returns:
+        list: list of generated molecules
     """
     params = {
         "numb_mol": num,
@@ -156,7 +174,13 @@ def gen_mols_lung_cancer(num: int) -> list:
 @tool
 def gen_mols_parkinson(num: int) -> list:
     """
-    Generation of molecules for the treatment of Parkinson's disease.\
+    Generation of molecules for the treatment of Parkinson's disease.
+    
+    Args:
+        num (int): number of molecules to generate
+
+    Returns:
+        list: list of generated molecules
     """
     params = {
         "numb_mol": num,
