@@ -1,0 +1,9 @@
+    Generation of molecules for acquired drug resistance. \
+    Molecules that selectively induce apoptosis in drug-resistant tumor cells.\
+    It significantly enhances the activity of existing therapeutic agents against drug-resistant pathogens.\
+    Hot keys: molecular structures targeting drug resistance mechanisms in cancer cells;\
+    ABC transporters involved in multidrug resistance; molecules that selectively induce apoptosis in drug-resistant tumor cells;\
+    counteracting drug resistance in oncological therapies; treatment sensitivity in resistant tumors; compounds that enhance the \
+    efficacy of existing anti-resistance treatments; synergistic compound that significantly enhances the activity of existing therapeutic \
+    agents against drug-resistant pathogens; selectively target the Ras-Raf-MEK-ERK signaling pathway\
+    molecules targeting the efflux pumps responsible for drug resistance.\

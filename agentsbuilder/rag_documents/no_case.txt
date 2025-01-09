@@ -1,0 +1,2 @@
+Generates molecules without case. 
+It need when users ask to give a molecule without indicating why and what kind of molecule it is.

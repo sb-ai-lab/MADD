@@ -1,0 +1,8 @@
+    Generation of molecules for the treatment of multiple sclerosis.\
+    There are high activity tyrosine-protein kinase BTK inhibitors or highly potent non-covalent \
+    BTK tyrosine kinase inhibitors from the TEC family of tyrosine kinases that have the potential \
+    to affect B cells as a therapeutic target for the treatment of multiple sclerosis.\
+    Hot keys: high activity tyrosine-protein kinase BTK inhibitors;  inhibit Bruton's tyrosine kinase \
+    through non-covalent interaction; non-covalent BTK inhibitors with enhanced permeability across the blood-brain \
+    barrier and high selectivity for Cytoplasmic tyrosine-protein kinase BMX;  immune signaling pathways \
+    to treat multiple sclerosis.

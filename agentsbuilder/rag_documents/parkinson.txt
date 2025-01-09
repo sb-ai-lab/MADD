@@ -1,0 +1,9 @@
+    Generation of molecules for the treatment of Parkinson's disease.\
+        These compounds should possess high bioavailability, cross the blood-brain barrier efficiently, and show \
+        minimal metabolic degradation.\
+        Hot keys: derivatives from amino acid groups with modifications in side chains to enhance bioactivity; \
+        heterocyclic compounds featuring nitrogen and sulfur to improve pharmacokinetics; molecules using a \
+        fragment-based approach, combining elements of natural alkaloids; molecules with properties of glutamate \
+        receptor antagonists for neuroprotection; compounds that inhibit monoamine oxidase B (MAO-B);\
+        dopamine agonist with improved blood-brain barrier penetration; dual-action molecule combining D2 \
+        receptor agonism and A2A antagonism;  PDE10A inhibitor with enhanced selectivity and potency.

@@ -1,0 +1,7 @@
+    Generation of molecules for the treatment of lung cancer. \
+    Molecules are inhibitors of KRAS protein with G12C mutation. \
+    The molecules are selective, meaning they should not bind with HRAS and NRAS proteins.\
+    Its target KRAS proteins with all possible mutations, including G12A/C/D/F/V/S, G13C/D, \
+    V14I, L19F, Q22K, D33E, Q61H, K117N, G12C and A146V/T.\
+    Hot keys: HRAS and NRAS proteins; KRAS G12C protein mutation, which drives cancer growth in lung cancer;\
+    avoiding binding to HRAS and NRAS; low cross-reactivity with other RAS isoforms;  molecules to specifically bind and inhibit KRAS G12C

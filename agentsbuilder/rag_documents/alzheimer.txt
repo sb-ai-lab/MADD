@@ -1,0 +1,7 @@
+Generation of drug molecules for the treatment of Alzheimer's disease. 
+GSK-3beta inhibitors with high activity. 
+These molecules can bind to GSK-3beta protein, molecules has low brain-blood barrier permeability.\
+Compounds that contain heterocyclic moieties to enhance binding affinity for amyloid-beta aggregates.\
+Hot keys: inhibitory activity against glycogen synthase kinase 3 beta (GSK-3β); compound should \
+demonstrate a permeability coefficient of at least 1.5 to ensure effective crossing of the blood-brain barrier; \
+tau protein kinases with an IC50 value lower than 50 nM.

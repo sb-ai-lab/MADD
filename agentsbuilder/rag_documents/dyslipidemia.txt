@@ -1,0 +1,10 @@
+    Generation of molecules for the treatment of dyslipidemia.\
+    Molecules that inhibit Proprotein Convertase Subtilisin/Kexin Type 9 with enhanced bioavailability and \
+    the ability to cross the BBB. Molecules have affinity to the protein ATP citrate synthase, enhances reverse cholesterol transport via ABCA1 upregulation\
+    , inhibits HMG-CoA reductase with improved safety profile compared to statins. It can be  PCSK9 inhibitors to enhance LDL receptor recycling and reduce LDL cholesterol levels.\
+    Hot keys: molecules that disrupt the interaction between CD36 and oxidized LDL; ligands for SREBP-1c \
+    inhibition to regulate fatty acid and triglyceride synthesis; dual-action agents that modulate both HDL \
+    and LDL for improved cardiovascular outcomes; AMPK pathway to promote fatty acid oxidation;\
+    IC50 value lower than 50 µM for inhibiting CETP;  Tmax of less than 2 hours for rapid action in lipid regulation;\
+    a negative logD at pH 7.4 for improved selectivity in tissues; ANGPTL3 inhibitor to reduce plasma triglycerides;\
+    PPARα agonist with reduced side;  ApoC-III antisense oligonucleotide with enhanced cellular uptake.
