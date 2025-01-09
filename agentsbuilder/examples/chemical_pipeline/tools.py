@@ -215,30 +215,3 @@ def gen_mols_parkinson(num: int) -> list:
     ans = make_markdown_table(json.loads(resp.json()))
 
     return ans
-
-@tool
-def make_answer_chat_model(num: int) -> list:
-    """Answers a question using a chat model (chemical assistant)). \
-    Suitable for free questions that do not require calling other tools or insufficient/incorrect arguments to call the function. \
-    Use it if you need to tell a person how to use what function (if there is doubt in his question)! \
-    Use this function if the user asks to define properties for molecules but does not provide them in Smiles format. \
-    For example, if user ask: 'What needs to be done for you to define the properties?';\n \
-    'What is needed to generate molecules?;
-
-    Args:
-        msg (str): Message from user
-
-    Returns:
-        str: text answer
-    """
-    params = {
-        "numb_mol": num,
-        "cuda": True,
-        "mean_": 0.0,
-        "std_": 1.0,
-        "case_": "RNDM"
-    }
-    resp = requests.post('http://10.32.2.2:81/case_generator', data=json.dumps(params))
-    ans = make_markdown_table(json.loads(resp.json()))
-
-    return ans

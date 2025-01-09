@@ -177,7 +177,8 @@ def compute_metrics(
                 .replace("Drug_Resistance ", "Drug_Resistance")
                 .split(", ")
             )
-            decomposer_true += row[3]
+            if row[3] == 1.0:
+                decomposer_true += row[3]
 
             row[11 - 1] = len(cases)
             [funcs.append(i) for i in row[4:9] if isinstance(i, str)]
@@ -249,3 +250,17 @@ def exctrac_mols_and_props(mols: str)-> list:
     molecules = re.findall(pattern, mols)
     valid_molecules = [mol for mol in molecules if any(c.isalpha() for c in mol)]
     return valid_molecules
+
+if __name__ == "__main__":
+    # compute_metrics('llama', '/projects/LLMagentsBuilder/experiment3_clear.xlsx')
+    res = pd.read_excel('/projects/LLMagentsBuilder/answers.xlsx').values.tolist()
+    total_succ = 0
+    for ex in res:
+        succ = 0
+        for ans_llm, func_ans in zip(eval(ex[1]), eval(ex[2])):      
+            succ += check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
+        
+        if succ == len(eval(ex[1])):
+            total_succ += 1 
+            
+    print(total_succ)
