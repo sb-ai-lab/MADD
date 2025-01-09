@@ -16,12 +16,12 @@ from pathlib import Path
 if __name__ == "__main__":
     path_rag = Path('agentsbuilder/rag_documents')
     llm = Llama31ChatModel(
-            api_key='KEY_HERE', 
+            api_key='KEY', 
             base_url="https://api.vsegpt.ru/v1",
             model="meta-llama/llama-3.1-70b-instruct",
             temperature=0.0, max_tokens=5000
         )
-    path = Path('/projects/LLMagentsBuilder/agentsbuilder/experiment2_clear.xlsx')
+    path = '/projects/LLMagentsBuilder/agentsbuilder/experiment3_clear.xlsx'
     questions = pd.read_excel(path).values.tolist()
     tools = [gen_mols_parkinson, gen_mols_lung_cancer, gen_mols_acquired_drug_resistance,
          gen_mols_dyslipidemia, gen_mols_multiple_sclerosis, gen_mols_alzheimer, request_mols_generation]

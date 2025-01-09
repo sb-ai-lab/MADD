@@ -16,18 +16,18 @@ from protollm.agents.llama31_agents.llama31_agent import Llama31ChatModel
 from examples.chemical_pipeline.tools import gen_mols_parkinson, gen_mols_lung_cancer, gen_mols_acquired_drug_resistance, \
          gen_mols_dyslipidemia, gen_mols_multiple_sclerosis, gen_mols_alzheimer, request_mols_generation
 from examples.chemical_pipeline.testcase import validate_decompose, validate_conductor, add_answers, check_total_answer, exctrac_mols_and_props
-from agentsbuilder.architecture_zoo import TwinsChain
+from architecture_zoo import TwinsChain
 
 
 # run pipeline on test data
 if __name__ == "__main__":
     llm = Llama31ChatModel(
-            api_key='KEY_HERE', 
+            api_key='KEY', 
             base_url="https://api.vsegpt.ru/v1",
             model="meta-llama/llama-3.1-70b-instruct",
             temperature=0.0, max_tokens=5000
         )
-    path = '/projects/LLMagentsBuilder/agentsbuilder/experiment2_clear.xlsx'
+    path = '/projects/LLMagentsBuilder/agentsbuilder/experiment3_clear.xlsx'
     questions = pd.read_excel(path).values.tolist()
     tools = [gen_mols_parkinson, gen_mols_lung_cancer, gen_mols_acquired_drug_resistance,
          gen_mols_dyslipidemia, gen_mols_multiple_sclerosis, gen_mols_alzheimer, request_mols_generation]
@@ -76,4 +76,4 @@ if __name__ == "__main__":
         # add info: are all molecules present in the answer? (True/False)
         total_success.append(is_match_full)
         
-        add_answers([answers_store, store_tools_answers, total_success], './answers_2exp.xlsx')
+        add_answers([answers_store, store_tools_answers, total_success], './answers_3exp.xlsx')

@@ -219,7 +219,7 @@ def compute_metrics(
 
     if not (just_1_case_in_all_smpls):
         print(
-            "Percentage true subtasks (accuracy of whole pipeline): ",
+            "Percentage true subtasks by Conductor: ",
             100 / (number_subtasks) * correct_subtasks,
         )
         print(
@@ -252,15 +252,29 @@ def exctrac_mols_and_props(mols: str)-> list:
     return valid_molecules
 
 if __name__ == "__main__":
-    # compute_metrics('llama', '/projects/LLMagentsBuilder/experiment3_clear.xlsx')
-    res = pd.read_excel('/projects/LLMagentsBuilder/answers.xlsx').values.tolist()
+    compute_metrics('llama', '/projects/LLMagentsBuilder/agentsbuilder/experiment2_clear.xlsx')
+    res = pd.read_excel('/projects/LLMagentsBuilder/answers_2exp.xlsx').values.tolist()
     total_succ = 0
+    success_by_tasks = 0
+    empty_sample = 0
+    # cnt for count tasks
+    cnt = 0 
+    
     for ex in res:
         succ = 0
         for ans_llm, func_ans in zip(eval(ex[1]), eval(ex[2])):      
-            succ += check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
+            is_correct = check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
+            
+            succ += is_correct
+            success_by_tasks += is_correct
+            
+            cnt += 1
         
+        if eval(ex[1]) == []:
+            empty_sample += 1 
+            
         if succ == len(eval(ex[1])):
             total_succ += 1 
             
-    print(total_succ)
+    print('Correct by querys: ', 1/len(res)*total_succ)
+    print('Correct by tasks: ', 1/cnt*success_by_tasks)
