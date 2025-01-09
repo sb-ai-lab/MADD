@@ -1,0 +1,7 @@
+*.xlsx
+.conda
+.vscode
+/dist
+/build
+*.pyc
+/agentsbuilder.egg-info
