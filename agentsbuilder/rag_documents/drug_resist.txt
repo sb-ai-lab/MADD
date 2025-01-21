@@ -1,4 +1,5 @@
-    Generation of molecules for acquired drug resistance. \
+    Generation of molecules for acquired drug resistance.
+    Drug resistance is the reduction in effectiveness of a medication such as an antimicrobial or an antineoplastic in treating a disease or condition.[1] The term is used in the context of resistance that pathogens or cancers have "acquired", that is, resistance has evolved. Antimicrobial resistance and antineoplastic resistance challenge clinical care and drive research. When an organism is resistant to more than one drug, it is said to be multidrug-resistant.
     Molecules that selectively induce apoptosis in drug-resistant tumor cells.\
     It significantly enhances the activity of existing therapeutic agents against drug-resistant pathogens.\
     Hot keys: molecular structures targeting drug resistance mechanisms in cancer cells;\

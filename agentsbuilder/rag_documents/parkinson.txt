@@ -1,4 +1,5 @@
-    Generation of molecules for the treatment of Parkinson's disease.\
+    Generation of molecules for the treatment of Parkinson's disease.
+    Parkinson's disease (PD), or simply Parkinson's, is a neurodegenerative disease primarily of the central nervous system, affecting both motor and non-motor systems. Symptoms typically develop gradually, with non-motor issues becoming more prevalent as the disease progresses. Common motor symptoms include tremors, bradykinesia (slowness of movement), rigidity, and balance difficulties, collectively termed parkinsonism. In later stages, Parkinson's disease dementia, falls, and neuropsychiatric problems such as sleep abnormalities, psychosis, mood swings, or behavioral changes may arise.
         These compounds should possess high bioavailability, cross the blood-brain barrier efficiently, and show \
         minimal metabolic degradation.\
         Hot keys: derivatives from amino acid groups with modifications in side chains to enhance bioactivity; \

@@ -1,4 +1,5 @@
-    Generation of molecules for the treatment of multiple sclerosis.\
+    Generation of molecules for the treatment of multiple sclerosis.
+    Multiple sclerosis (MS) is an autoimmune disease resulting in damage to the insulating covers of nerve cells in the brain and spinal cord.[3] As a demyelinating disease, MS disrupts the nervous system's ability to transmit signals, resulting in a range of signs and symptoms, including physical, mental, and sometimes psychiatric problems.[1][8][9] Symptoms include double vision, vision loss, eye pain, muscle weakness, and loss of sensation or coordination.[3][10][11] MS takes several forms, with new symptoms either occurring in isolated attacks (relapsing forms) or building up over time (progressive forms).[12][13] In relapsing forms of MS symptoms may disappear completely between attacks, although some permanent neurological problems often remain, especially as the disease advances.[13] In progressive forms of MS, bodily function slowly deteriorates once symptoms manifest and will steadily worsen if left untreated.[14]
     There are high activity tyrosine-protein kinase BTK inhibitors or highly potent non-covalent \
     BTK tyrosine kinase inhibitors from the TEC family of tyrosine kinases that have the potential \
     to affect B cells as a therapeutic target for the treatment of multiple sclerosis.\

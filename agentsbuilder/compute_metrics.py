@@ -2,10 +2,9 @@
 Modules for assessing the quality of the pipeline and individual agents
 """
 
-import numpy as np
-import pandas as pd
 import re
 
+import pandas as pd
 
 dict_for_map_many_func = {
     "alzheimer": "gen_mols_alzheimer",
@@ -26,9 +25,13 @@ dict_for_map_few_func = {
     "Parkinson": "Prkns",
 }
 
+
 def add_answers(answers: list, path: str):
     llm_res, tool_res, check = answers
-    pd.DataFrame({'llm_result': llm_res, 'tool_result': tool_res, 'check': check}).to_excel(path)
+    pd.DataFrame(
+        {"llm_result": llm_res, "tool_result": tool_res, "check": check}
+    ).to_excel(path)
+
 
 def validate_decompose(
     idx: int,
@@ -52,13 +55,14 @@ def validate_decompose(
         pd.DataFrame(lines, columns=columns).to_excel(validation_path, index=False)
         return False
 
+
 def validate_conductor(
     idx: int,
     func: dict,
     sub_task_number: int,
-    path_total_val="multi_agents_system/testcase/experiment3_example.xlsx",
-    func_field: str = 'action',
-    parm_field: str = 'action_input'
+    path_total_val="./experiment3.xlsx",
+    func_field: str = "action",
+    parm_field: str = "action_input",
 ) -> bool:
     """
     Validate conductors agent answer. File must consist of next columns = 'case', 'content', 'decomposers_tasks', 'is_correct_context', 'task 1', 'task 2', 'task 3', 'task 4', 'task 5'
@@ -133,7 +137,7 @@ def validate_conductor(
 def compute_metrics(
     model_name: str = "no_name_model",
     file_path: str = "multi_agents_system/testcase/experiment3_example.xlsx",
-    just_one_task_per_q: bool = False
+    just_one_task_per_q: bool = False,
 ):
     """
     Compute pipeline metrics
@@ -147,7 +151,7 @@ def compute_metrics(
     model_name : str
         Name of model with which testing was carried out
     just_one_task_per_q: bool, optional
-        True, if passed querys just with 1 task 
+        True, if passed querys just with 1 task
     """
     just_1_case_in_all_smpls = True
     dfrm = pd.read_excel(file_path)
@@ -186,14 +190,16 @@ def compute_metrics(
             # for every subtask in main task(query)
             for n, case in enumerate(cases):
                 if just_one_task_per_q:
-                    is_correct = dict_for_map_many_func[case] == row[4 + n] and len(funcs) == len(cases)
+                    is_correct = dict_for_map_many_func[case] == row[4 + n] and len(
+                        funcs
+                    ) == len(cases)
                 else:
                     is_correct = dict_for_map_many_func[case] == row[4 + n]
                 row[10 - 1], correct_subtasks = (
                     row[10 - 1] + int(is_correct),
                     correct_subtasks + int(is_correct),
                 )
-                            
+
             # if all subtasks are defined correctly
             if row[10 - 1] == row[11 - 1] and len(funcs) == len(cases):
                 correct_tasks += 1
@@ -207,7 +213,7 @@ def compute_metrics(
 
             number_subtasks, number_tasks = (
                 number_subtasks + len(cases),
-                number_tasks + 1
+                number_tasks + 1,
             )
 
         except:
@@ -232,49 +238,47 @@ def compute_metrics(
         )
     else:
         print("Percentage true tasks: ", 100 / (number_tasks) * correct_tasks + 1)
-        
+
 
 # for validation Summarization
 def check_total_answer(true_answers: list[str], total_answer: str) -> bool:
     for true_ans in true_answers:
-        if not(true_ans in total_answer):
-            return False
-        num_rep = total_answer.count(true_ans)
-        if num_rep > 1:
+        if not (true_ans in total_answer):
             return False
     return True
 
-def exctrac_mols_and_props(mols: str)-> list:
+
+def exctrac_mols_and_props(mols: str) -> list:
     pattern = r"\| ([A-Za-z0-9@+\-=#\[\]\(\)\\\/\.\*]+) \|"
 
     molecules = re.findall(pattern, mols)
     valid_molecules = [mol for mol in molecules if any(c.isalpha() for c in mol)]
     return valid_molecules
 
+
 if __name__ == "__main__":
-    compute_metrics('llama', '/projects/LLMagentsBuilder/agentsbuilder/experiment2_clear.xlsx')
-    res = pd.read_excel('/projects/LLMagentsBuilder/answers_2exp.xlsx').values.tolist()
+    compute_metrics("llama", "LLMagentsBuilder/exp3_multi.xlsx")
+    res = pd.read_excel("LLMagentsBuilder/answers_3exp_multi.xlsx").values.tolist()
     total_succ = 0
     success_by_tasks = 0
     empty_sample = 0
     # cnt for count tasks
-    cnt = 0 
-    
+    cnt = 0
+
     for ex in res:
         succ = 0
-        for ans_llm, func_ans in zip(eval(ex[1]), eval(ex[2])):      
+        for ans_llm, func_ans in zip(eval(ex[1]), eval(ex[2])):
             is_correct = check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
-            
+
             succ += is_correct
             success_by_tasks += is_correct
-            
+
             cnt += 1
-        
+
         if eval(ex[1]) == []:
-            empty_sample += 1 
-            
-        if succ == len(eval(ex[1])):
-            total_succ += 1 
-            
-    print('Correct by querys: ', 1/len(res)*total_succ)
-    print('Correct by tasks: ', 1/cnt*success_by_tasks)
+            empty_sample += 1
+        elif succ == len(eval(ex[1])):
+            total_succ += 1
+
+    print("Correct by querys: ", 1 / (len(res) - empty_sample) * total_succ)
+    print("Correct by tasks: ", 1 / cnt * success_by_tasks)

@@ -1,4 +1,5 @@
-    Generation of molecules for the treatment of lung cancer. \
+    Generation of molecules for the treatment of lung cancer.
+    Lung cancer, also known as lung carcinoma, is a malignant tumor that begins in the lung. Lung cancer is caused by genetic damage to the DNA of cells in the airways, often caused by cigarette smoking or inhaling damaging chemicals. Damaged airway cells gain the ability to multiply unchecked, causing the growth of a tumor. Without treatment, tumors spread throughout the lung, damaging lung function. Eventually lung tumors metastasize, spreading to other parts of the body.
     Molecules are inhibitors of KRAS protein with G12C mutation. \
     The molecules are selective, meaning they should not bind with HRAS and NRAS proteins.\
     Its target KRAS proteins with all possible mutations, including G12A/C/D/F/V/S, G13C/D, \

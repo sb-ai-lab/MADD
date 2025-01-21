@@ -1,4 +1,5 @@
-    Generation of molecules for the treatment of dyslipidemia.\
+    Generation of molecules for the treatment of dyslipidemia.
+    Dyslipidemia is a metabolic disorder characterized by abnormally high or low amounts of any or all lipids (e.g. fats, triglycerides, cholesterol, phospholipids) or lipoproteins in the blood.[1] Dyslipidemia is a risk factor for the development of atherosclerotic cardiovascular diseases,[1] which include coronary artery disease, cerebrovascular disease, and peripheral artery disease.[1] Although dyslipidemia is a risk factor for cardiovascular disease, abnormal levels do not mean that lipid lowering agents need to be started.
     Molecules that inhibit Proprotein Convertase Subtilisin/Kexin Type 9 with enhanced bioavailability and \
     the ability to cross the BBB. Molecules have affinity to the protein ATP citrate synthase, enhances reverse cholesterol transport via ABCA1 upregulation\
     , inhibits HMG-CoA reductase with improved safety profile compared to statins. It can be  PCSK9 inhibitors to enhance LDL receptor recycling and reduce LDL cholesterol levels.\

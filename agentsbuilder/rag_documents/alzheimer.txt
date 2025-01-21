@@ -1,4 +1,5 @@
-Generation of drug molecules for the treatment of Alzheimer's disease. 
+Generation of drug molecules for the treatment of Alzheimer's disease.
+Alzheimer's disease is a brain disorder that slowly destroys memory and thinking skills, and eventually, the ability to carry out the simplest tasks. In most people with Alzheimer's, symptoms first appear later in life. 
 GSK-3beta inhibitors with high activity. 
 These molecules can bind to GSK-3beta protein, molecules has low brain-blood barrier permeability.\
 Compounds that contain heterocyclic moieties to enhance binding affinity for amyloid-beta aggregates.\
