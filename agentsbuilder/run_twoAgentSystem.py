@@ -14,7 +14,7 @@ import re
 
 import pandas as pd
 from protollm.agents.llama31_agents.llama31_agent import Llama31ChatModel
-from tools.tools import (gen_mols_acquired_drug_resistance, gen_mols_alzheimer,
+from agentsbuilder.tools.two_agent_tools import (gen_mols_acquired_drug_resistance, gen_mols_alzheimer,
                          gen_mols_dyslipidemia, gen_mols_lung_cancer,
                          gen_mols_multiple_sclerosis, gen_mols_parkinson,
                          request_mols_generation)
