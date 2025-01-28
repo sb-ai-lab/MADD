@@ -1,12 +1,10 @@
-import time
 from datetime import datetime
-from random import randrange
 from typing import Dict
 
 import pandas as pd
 import yaml
 from agents import ChatAgent
-from multi_agents_main_system.prompting.props import props_descp_dict
+from prompting.props import props_descp_dict
 from rdkit import Chem
 from rdkit.Chem import Draw
 from utils.API import call_for_generation
@@ -39,7 +37,7 @@ def mols_vizualization(mols: list):
 
     for i, mol in enumerate(mols):
         img = Draw.MolToImage(Chem.MolFromSmiles(mol))
-        img.save(f"multi_agents_system/main_system/vizualization/mol{time[i]}_{i}.png")
+        img.save(f"agentsbuilder/multi_agents_main_system/vizualization/mol{time[i]}_{i}.png")
 
     print(f"PROCESS: Saved: {i + 1} vizualizations of SMILES")
 

@@ -8,7 +8,7 @@ import yaml
 from chain import Chain
 
 # Initialize the chain with the proper key
-with open("multi_agents_main_system/config.yaml", "r") as file:
+with open("agentsbuilder/multi_agents_main_system/config.yaml", "r")as file:
     config = yaml.safe_load(file)
 
 chain = Chain(
@@ -49,15 +49,15 @@ def bot(history: list[list]) -> list[list]:
             answer = chain.run(history[-1][0])
         onlyfiles = [
             f
-            for f in listdir("multi_agents_main_system/vizualization")
-            if isfile(join("multi_agents_main_system/vizualization", f))
+            for f in listdir("agentsbuilder/multi_agents_main_system//vizualization")
+            if isfile(join("agentsbuilder/multi_agents_main_system//vizualization", f))
         ]
     except:
         answer = chain.run(history[-1][0])
         onlyfiles = [
             f
-            for f in listdir("multi_agents_main_system/vizualization")
-            if isfile(join("multi_agents_main_system/vizualization", f))
+            for f in listdir("agentsbuilder/multi_agents_main_system//vizualization")
+            if isfile(join("agentsbuilder/multi_agents_main_system//vizualization", f))
         ]
 
     # if answer consist of molecules and images or just text answer
@@ -66,7 +66,7 @@ def bot(history: list[list]) -> list[list]:
             history.append((None, answer))  # add text
             sorted_files = sorted(onlyfiles, key=extract_time)
             for file in sorted_files[::-1]:
-                image = gr.Image("multi_agents_main_system/vizualization/" + file)
+                image = gr.Image("agentsbuilder/multi_agents_main_system//vizualization/" + file)
                 history.append((None, image))  # add image
         else:
             history.append((None, answer))
@@ -75,7 +75,7 @@ def bot(history: list[list]) -> list[list]:
         history[-1][1] = answer
         if onlyfiles != []:
             for file in onlyfiles:
-                image = gr.Image("multi_agents_main_system/vizualization/" + file)
+                image = gr.Image("agentsbuilder/multi_agents_main_system//vizualization/" + file)
                 history.append((None, image))
     return history
 

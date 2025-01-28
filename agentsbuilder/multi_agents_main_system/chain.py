@@ -23,7 +23,7 @@ import yaml
 from agents import (ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent,
                     ValidateAgent)
 from memory import ChatMemory
-from multi_agents_main_system.prompting.props import props_descp_dict
+from prompting.props import props_descp_dict
 from prompting.props import enter, props_descp_dict, props_name
 from tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
                    gen_mols_alzheimer, gen_mols_dyslipidemia,
@@ -153,10 +153,10 @@ class Chain:
             "make_answer_chat_model": make_answer_chat_model,
             "gen_mols_all_case": gen_mols_all_case,
         }
-        with open("multi_agents_main_system/config.yaml", "r") as file:
+        with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "multi_agents_main_system/vizualization/"):
+    def rm_last_saved_file(self, dir: str = "agentsbuilder/multi_agents_main_system/vizualization/"):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:
@@ -340,7 +340,7 @@ class Chain:
 
 
 if __name__ == "__main__":
-    with open("multi_agents_main_system/config.yaml", "r") as file:
+    with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
         config = yaml.safe_load(file)
 
     chain = Chain(

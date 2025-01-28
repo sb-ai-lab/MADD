@@ -13,7 +13,7 @@ from prompting.validator_prompts import (query_pattern_valid,
                                          system_validator_prompt_little)
 from pydantic.v1 import BaseModel, Field
 
-with open("multi_agents_main_system/config.yaml", "r") as file:
+with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
     config = yaml.safe_load(file)
 
 if config["prompt_type"] == 1:
