@@ -20,9 +20,10 @@ import time
 from os import listdir
 from os.path import isfile, join
 from typing import Union
+import copy 
 
 import yaml
-from agents import ChatAgent, Orchestrator, DecomposeAgent, SummaryAgent
+from agents import ChatAgent, Orchestrator, DecomposeAgent, SummaryAgent, ValidateAgent
 from memory import ChatMemory
 from case_scalable_main_system.prompting.props import props_descp_dict
 from prompting.props import enter, props_descp_dict, props_name
@@ -91,6 +92,12 @@ class Chain:
         self.conductor_agent = Orchestrator(
             model_name=conductor_model, api_key=llama_api_key, url=url
         )
+        self.validator_agent = ValidateAgent(
+                api_key=llama_api_key,
+                model_name=conductor_model,
+                url=url,
+                is_many_funcs=True,
+            )
         self.chat_agent, self.summary_agent = (
             ChatAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
             SummaryAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
@@ -131,6 +138,7 @@ class Chain:
         answer = self.tools_map[tool["name"].replace(" ", "")](tool["parameters"])
         return answer
 
+
     def task_handler(self) -> str:
         """Define tool for call and call it.
         Validate answer by self-reflection.
@@ -155,6 +163,8 @@ class Chain:
                         "make_answer_chat_model",
                         "",
                     )
+                    
+                temp_chat_history = copy.deepcopy(self.chat_history)
 
                 if not (tool):
                     tool = self.conductor_agent.call(self.chat_history.store)
@@ -165,7 +175,24 @@ class Chain:
                     tool = tool[0]
 
                 print(f'TOOL: {tool["name"]} {tool["parameters"]}')
-
+                
+                # validate by instruction
+                success, valid_tool = self.validate_agent.validate_tool(
+                    self.chat_history.store[-1],
+                    tool,
+                    self.chat_history.store[:-1],
+                )
+                
+                if not (success):
+                    if attempt >= self.attempt:
+                        attempt = 0
+                    else:
+                        attempt += 1
+                        self.chat_history = temp_chat_history
+                        tool = valid_tool
+                        print("PROCESS: Validation for function to call not passed")
+                        continue
+                # False - cos yet not passed function calling
                 success = False
 
                 res, mol = self.call_tool(tool)

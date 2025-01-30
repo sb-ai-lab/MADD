@@ -12,6 +12,9 @@ from prompting.conductor_prompts_v1 import (INSTRUCT_TOOLS_LARGE,
 from prompting.decompose_prompts import decompose_prompt
 from prompting.summary_prompts import prompt_finally
 from pydantic.v1 import BaseModel, Field
+from prompting.validator_prompts import (query_pattern_valid,
+                                         system_validator_prompt_large,
+                                         system_validator_prompt_little)
 
 with open("case_scalable_main_system/config.yaml", "r") as file:
     config = yaml.safe_load(file)
@@ -175,3 +178,53 @@ class ChatAgent(BaseAgent):
         prompt_content = f"<FUNCTIONS>{INSTRUCT_INTRO}{INSTRUCT_DESCP_FOR_CHAT}</FUNCTIONS>\n\n{HELP_FOR_TOOLS}\nQuery: {msg}"
         prompt = [{"role": "user", "content": prompt_content}]
         return self.request(prompt)
+
+
+class ValidateAgent(BaseAgent):
+    """Class for validating answers from the Conductor."""
+
+    def __init__(
+        self, api_key: str, model_name: str, url: str, is_many_funcs: bool = False
+    ):
+        super().__init__(model_name=model_name, api_key=api_key, url=url)
+        self.prompt = (
+            system_validator_prompt_large
+            if is_many_funcs
+            else system_validator_prompt_little
+        )
+
+    def _parsing(s: str):
+        start = s.find("{")
+        end = s.rfind("}")
+
+        if start != -1 and end != -1 and start < end:
+            return s[start : end + 1]
+        else:
+            return None
+
+    def validate_tool(self, msg: str, tool: dict, history: List[str]) -> bool:
+        formatted_history = [{"role": "user", "content": item} for item in history]
+        prompt_content = query_pattern_valid.format(
+            history=formatted_history, msg=msg, func=tool
+        )
+        prompt = [
+            {"role": "system", "content": self.prompt},
+            {"role": "user", "content": prompt_content},
+        ]
+        response = self.request(prompt)
+
+        start = response.find("{")
+        end = response.rfind("}")
+        if start != -1 and end != -1 and start < end:
+            response_formatted = response[start : end + 1]
+        else:
+            response_formatted = None
+
+        try:
+            valid_func = eval(response_formatted)
+        except:
+            valid_func = tool
+            print(
+                "PROCESS: Validator return text answer, return not validated tool for calling..."
+            )
+        return valid_func == tool, valid_func
