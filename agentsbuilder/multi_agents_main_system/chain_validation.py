@@ -10,8 +10,8 @@ import yaml
 from agents import (ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent,
                     ValidateAgent)
 from memory import ChatMemory
-from multi_agents_main_system.prompting.props import props_descp_dict
-from multi_agents_main_system.testcase.validate_pipeline import (
+from prompting.props import props_descp_dict
+from testcase.validate_pipeline import (
     add_answers, validate_conductor, validate_decompose)
 from prompting.props import enter, props_descp_dict, props_name
 from tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
@@ -128,10 +128,10 @@ class ValidationChain:
             "make_answer_chat_model": make_answer_chat_model,
             "gen_mols_all_case": gen_mols_all_case,
         }
-        with open("multi_agents_system/config.yaml", "r") as file:
+        with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "multi_agents_system/vizualization/"):
+    def rm_last_saved_file(self, dir: str = "agentsbuilder/multi_agents_main_system/vizualization/"):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:
@@ -164,7 +164,7 @@ class ValidationChain:
             Output from tools
         """
         global TOTAL_QUERYS
-        attempt, total_attempt = 0, 0
+        total_attempt = 0
         success, tool = False, None
         # in case the format of the conductors answer is not correct
         while not (success):
@@ -179,7 +179,6 @@ class ValidationChain:
                         "make_answer_chat_model",
                         "",
                     )
-                temp_chat_history = copy.deepcopy(self.chat_history)
 
                 if not (tool):
                     tool = self.conductor_agent.call(self.chat_history.store)
@@ -188,6 +187,7 @@ class ValidationChain:
                         is_valid = validate_conductor(
                             TOTAL_QUERYS, tool, sub_task_number, self.validation_path
                         )
+                        print(is_valid)
                     except Exception as e:
                         print("VALIDATION ERROR: ", e)
 
@@ -250,6 +250,7 @@ class ValidationChain:
 
         for i, task in enumerate(tasks):
             self.chat_history.add(task, "user")
+
             res, tool, mol = self.task_handler(i)
             try:
                 mols.append(mol["Molecules"])
@@ -312,7 +313,7 @@ class ValidationChain:
 
 if __name__ == "__main__":
     answers_store, tables_store, total_success = [], [], []
-    with open("multi_agents_main_system/config.yaml", "r") as file:
+    with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
         config = yaml.safe_load(file)
 
     chain = ValidationChain(
@@ -332,5 +333,5 @@ if __name__ == "__main__":
             tables
         ), total_success.append(success)
         add_answers(
-            [answers_store, tables_store, total_success], "./answers_3exp_multi.xlsx"
+            [answers_store, tables_store, total_success], "./answers_r2.xlsx"
         )

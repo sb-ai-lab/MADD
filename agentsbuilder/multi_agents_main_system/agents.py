@@ -29,7 +29,7 @@ else:
 
 
 class BaseAgent:
-    available_models = ["meta-llama/llama-3.1-70b-instruct"]
+    available_models = ["meta-llama/llama-3.1-70b-instruct", "deepseek/deepseek-r1", "deepseek/deepseek-r1-alt", "deepseek/deepseek-r1-distill-llama-70b"]
 
     def __init__(
         self,
@@ -137,7 +137,7 @@ class ConductorAgent(BaseAgent):
         formatted_history = [eval(item) for item in history]
         system_content = self.prompt + self.tools
 
-        prompt = [{"role": "system", "content": system_content}] + formatted_history
+        prompt = [{"role": "system", "content": system_content}] + [formatted_history[-1]]
         response = self.request(prompt).replace("<|python_tag|>", "")
         try:
             return eval(response.replace("json", "").replace("```", ""))

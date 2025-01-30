@@ -257,7 +257,7 @@ def exctrac_mols_and_props(mols: str) -> list:
 
 
 if __name__ == "__main__":
-    compute_metrics("llama", "LLMagentsBuilder/exp3_multi.xlsx")
+    compute_metrics("llama", "LLMagentsBuilder/experiment1_clear_copy.xlsx")
     res = pd.read_excel("LLMagentsBuilder/answers_3exp_multi.xlsx").values.tolist()
     total_succ = 0
     success_by_tasks = 0
