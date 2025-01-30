@@ -25,7 +25,7 @@ import copy
 import yaml
 from agents import ChatAgent, Orchestrator, DecomposeAgent, SummaryAgent, ValidateAgent
 from memory import ChatMemory
-from case_scalable_main_system.prompting.props import props_descp_dict
+from case_scalable_system.prompting.props import props_descp_dict
 from prompting.props import enter, props_descp_dict, props_name
 from tools import gen_mols, make_answer_chat_model, compute_by_rdkit, \
     train_gen_models, automl_predictive_models, inference_predictive_models, compute_docking_score

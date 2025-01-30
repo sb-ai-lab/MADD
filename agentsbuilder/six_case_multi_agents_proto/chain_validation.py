@@ -313,7 +313,7 @@ class ValidationChain:
 
 if __name__ == "__main__":
     answers_store, tables_store, total_success = [], [], []
-    with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
+    with open("agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
         config = yaml.safe_load(file)
 
     chain = ValidationChain(

@@ -4,7 +4,7 @@ from typing import Dict
 import pandas as pd
 import yaml
 from agents import ChatAgent
-from case_scalable_main_system.prompting.props import props_descp_dict
+from case_scalable_system.prompting.props import props_descp_dict
 from rdkit import Chem
 from rdkit.Chem import Draw
 from utils.API import call_for_generation, call_for_ic50, call_for_docking
