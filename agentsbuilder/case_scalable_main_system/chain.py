@@ -22,11 +22,12 @@ from os.path import isfile, join
 from typing import Union
 
 import yaml
-from agents import ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent
+from agents import ChatAgent, Orchestrator, DecomposeAgent, SummaryAgent
 from memory import ChatMemory
 from case_scalable_main_system.prompting.props import props_descp_dict
 from prompting.props import enter, props_descp_dict, props_name
-from tools import gen_mols, make_answer_chat_model, run_fine_tuning
+from tools import gen_mols, make_answer_chat_model, compute_by_rdkit, \
+    train_gen_models, automl_predictive_models, inference_predictive_models, compute_docking_score
 
 
 class Chain:
@@ -87,7 +88,7 @@ class Chain:
             msg_limit=msg_for_store, model_type=conductor_model
         )
         self.decompose_agent = DecomposeAgent(conductor_model)
-        self.conductor_agent = ConductorAgent(
+        self.conductor_agent = Orchestrator(
             model_name=conductor_model, api_key=llama_api_key, url=url
         )
         self.chat_agent, self.summary_agent = (
@@ -96,8 +97,12 @@ class Chain:
         )
         self.tools_map = {
             "gen_mols": gen_mols,
-            "run_fine_tuning": run_fine_tuning,
+            "train_gen_models": train_gen_models,
             "make_answer_chat_model": make_answer_chat_model,
+            "compute_by_rdkit": compute_by_rdkit, 
+            "automl_predictive_models": automl_predictive_models, 
+            "inference_predictive_models": inference_predictive_models, 
+            "compute_docking_score": compute_docking_score
         }
         with open("case_scalable_main_system/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)

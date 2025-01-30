@@ -1,6 +1,6 @@
 gen_mols_metadata = {
     "name": "gen_mols",
-    "description": "Generate molecules by models.",
+    "description": "Generate molecules by generative models. Inference.",
     "arguments": [
         {
             "name": "case",
@@ -24,8 +24,8 @@ gen_mols_metadata = {
             , inhibits HMG-CoA reductase with improved safety profile compared to statins. It can be  PCSK9 inhibitors to enhance LDL receptor recycling and reduce LDL cholesterol levels.\
             'TBLET' - generation of molecules for acquired drug resistance. Molecules that selectively induce apoptosis in drug-resistant tumor cells.\
             It significantly enhances the activity of existing therapeutic agents against drug-resistant pathogens.\
-            'ANOTHER' - for a disease not mentioned above.\
-            'RNDM' - random generation.",
+            'ANOTHER' - (Can be any word (disease that the user mentioned user).\
+            'RNDM' - random generation .",
         },
         {
             "name": "num",
@@ -61,14 +61,6 @@ gen_mols_metadata = {
             Drug resistance	0,63	0,52%	0,4	0,38	0,38	0,13\
             Dyslipidemia	0,02	0,02	0,02	0,02	0,02	0,045\
             Parkinson	0.03	0.03	0	0	0	0.17  ; \
-            'Japon agent system' - ideal for Parkinson case:\
-            Filter group	1	2	3	4	5	Diversity\
-            Alzheimer's	9,03%	9,03%	0,53%	0,50%	0,50%	0,12\
-            Sclerosis 	2,44%	2,44%	1,66%	1,55%	1,55%	0,4396\
-            Lung cancer	6,65%	6,65%	4,06%	3,53%	3,53%	0,43\
-            Drug resistance	0,14%	0,14%	0,09%	0,09%	0,09%	0,43\
-            Dyslipidemia	0,12%	0,12%	0,06%	0,06%	0,06%	0,44\
-            Parkinson	24,21%	24,21%	14,39%	13,47%	13,47%	0,439;\
             'GraphGA' - ideal for Alzheimer's case:\
             Filter group	1	2	3	4	5	Diversity\
             Alzheimer's	69,00%	69,00%	37,00%	28,00%	28,00%	0,18\
@@ -80,14 +72,82 @@ gen_mols_metadata = {
         },
     ],
 }
-request_fine_tuning_metadata = {
-    "name": "request_fine_tuning",
-    "description": "",
+train_gen_models_metadata = {
+    "name": "train_gen_models",
+    "description": "Train a generative model with a custom dataset (only if the user requests training).",
     "arguments": [
         {
             "name": "model",
             "type": "str",
-            "description": "Model for finetuning for specific not existed case. Available: 'RL', 'CVAE', 'LSTM'",
+            "description": "Model for finetuning for specific not existed case. Available: 'RL', 'CVAE', 'LSTM', 'GraphGA'",
+        },
+        {
+            "name": "epoch",
+            "type": "int",
+            "description": "Number of train epoch",
+        },
+        {
+            "name": "case_name",
+            "type": "str",
+            "description": "The name of the disease for which the model will be trained (in the future, the user will ask for inference using this name)",
+        }
+    ],
+}
+
+automl_predictive_models_metadata = {
+    "name": "automl_predictive_models",
+    "description": "Calling the AUTOML module to automatically train a predictive model for a property that is not represented in the current tools.",
+    "arguments": [
+        {
+            "name": "property",
+            "type": "str",
+            "description": "Name of property for prediction. Can be any property name based on user query.",
+        }
+    ],
+}
+
+inference_predictive_models_metadata = {
+    "name": "inference_predictive_models",
+    "description": "Predicting properties using ready-made ML models. Only suitable for IC50 property.",
+    "arguments": [
+        {
+            "name": "property",
+            "type": "str",
+            "description": "Name of property for prediction. Available: 'IC50'",
+        },
+                {
+            "name": "molecules",
+            "type": "list",
+            "description": "List of molecules in SMILES format",
+        }
+    ],
+}
+
+compute_docking_score_metadata = {
+    "name": "compute_docking_score",
+    "description": "Calculation of docking score for molecules",
+    "arguments": [
+        {
+            "name": "molecules",
+            "type": "str",
+            "description": "List of molecules in SMILES format",
+        }
+    ],
+}
+
+compute_by_rdkit_metadata = {
+    "name": "compute_by_rdkit",
+    "description": "Prediction of properties for molecules. The following are available: 'Brenk', 'Diversity', 'PAINS', 'SureChEMBL', 'Glaxo', 'SA', 'QED'.",
+    "arguments": [
+        {
+            "name": "molecules",
+            "type": "str",
+            "description": "List of molecules in SMILES format.",
+        },
+        {
+            "name": "property",
+            "type": "str",
+            "description": "Name of property for prediction. Available: 'Brenk', 'Diversity', 'PAINS', 'SureChEMBL', 'Glaxo', 'SA', 'QED'.",
         }
     ],
 }

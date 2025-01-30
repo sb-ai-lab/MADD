@@ -112,7 +112,7 @@ class DecomposeAgent(BaseAgent):
         return [i[1] for i in tasks if i[1] != None]
 
 
-class ConductorAgent(BaseAgent):
+class Orchestrator(BaseAgent):
     """Agent to define tools based on user tasks."""
 
     def __init__(

@@ -6,16 +6,11 @@ INSTRUCT_TOOLS_FOR_CHAT = """
 You can medicine for all disease in world!
 
 And also:
-1) Generation of drug molecules for the treatment of Alzheimer's disease. To start, you must specify the number of desired molecules.
-2) Generation of molecules for the treatment of Parkinson's disease. To start, you must specify the number of desired molecules.
-3) Generation of molecules for the treatment of multiple sclerosis. To start, you must specify the number of desired molecules.
-4) Generation of molecules for the treatment of dyslipidemia. To start, you must specify the number of desired molecules.
-5) Generation of molecules for acquired drug resistance. To start, you must specify the number of desired molecules.
-6) Generation of molecules for the treatment of lung cancer. To start, you must specify the number of desired molecules.
-7) Generate a molecule to treat another disease.
-8) Fine tune an existing model (CVAE Transformer, LSTM, RL, GrapGA) for a specific case
-
-It is necessary that you attach a text file with molecules in smiley format, separated by a comma.
+1) Generate of drug molecules for the treatment of Alzheimer's, Parkinson's, multiple sclerosis, dyslipidemia, drug resistance, lung cancer disease by pretrained generative models. To start, you must specify the number of desired molecules and disease name or properties.
+2) Generate a molecule to treat another disease by pretrained generative models (the best model available during the experiments is determined).
+3) Train from scratch an existing generative model (CVAE Transformer, LSTM, RL Freed++, GrapGA) for a specific case. To do this, you need to submit a file with molecules in csv format.
+4) Predict properties for molecule using prepared predictive ML models, calculation engines or functions. To do this, you need to present the molecule in SMILES
+5) Train predictive models using the AUTOML module for new properties. To do this, you need a dataset from the user with molecules and a property value.
 
 To use the built-in functionality, the user must write what he would like.
 """
