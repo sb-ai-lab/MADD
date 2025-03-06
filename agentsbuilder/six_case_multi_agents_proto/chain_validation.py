@@ -128,10 +128,10 @@ class ValidationChain:
             "make_answer_chat_model": make_answer_chat_model,
             "gen_mols_all_case": gen_mols_all_case,
         }
-        with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
+        with open("./agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "agentsbuilder/multi_agents_main_system/vizualization/"):
+    def rm_last_saved_file(self, dir: str = "./agentsbuilder/six_case_multi_agents_proto/vizualization/"):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:
@@ -200,6 +200,8 @@ class ValidationChain:
 
                 success = False
 
+                if "num" in tool["parameters"].keys():
+                    tool["parameters"]["num"] = 1
                 res, mol = self.call_tool(tool)
                 print("PROCESS: getted response from tool")
                 success = True
@@ -291,8 +293,8 @@ class ValidationChain:
         is_match_full = True
         true_mols, total_success = [], []
 
-        if tables_store == []:
-            return [answers_store, tables_store, total_success]
+        # if tables_store == []:
+        #     return [answers_store, tables_store, total_success]
 
         for j in range(len(tables_store)):
             true_mol = tables_store[j]
@@ -302,18 +304,19 @@ class ValidationChain:
                 continue
             else:
                 is_match_full = False
+        
 
         total_success.append(is_match_full)
 
-        for i in range(len(tables_store)):
+        for i in range(len(tables_store)+len(free_response_store)):
             answers_store.append(finally_ans)
 
-        return [answers_store, tables_store, total_success[0]]
+        return [answers_store, tables_store + free_response_store, total_success[0]]
 
 
 if __name__ == "__main__":
     answers_store, tables_store, total_success = [], [], []
-    with open("agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
+    with open("./agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
         config = yaml.safe_load(file)
 
     chain = ValidationChain(
@@ -333,5 +336,5 @@ if __name__ == "__main__":
             tables
         ), total_success.append(success)
         add_answers(
-            [answers_store, tables_store, total_success], "./answers_r2.xlsx"
+            [answers_store, tables_store, total_success], "./answers_by_steps.xlsx"
         )

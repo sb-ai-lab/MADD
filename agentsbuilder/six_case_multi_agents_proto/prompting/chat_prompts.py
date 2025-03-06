@@ -9,10 +9,9 @@ INSTRUCT_TOOLS_FOR_CHAT = """
 4) Generation of molecules for the treatment of dyslipidemia. To start, you must specify the number of desired molecules.
 5) Generation of molecules for acquired drug resistance. To start, you must specify the number of desired molecules.
 6) Generation of molecules for the treatment of lung cancer. To start, you must specify the number of desired molecules.
-7) Generation of drug molecules with docking with your protein. Calculation of properties for new molecules. 
-It is necessary that you attach a text file with molecules in smiley format, separated by a comma.
 
 To use the built-in functionality, the user must write what he would like.
+Attention: if a user asks for something that you can't do, write what you can't do, or answer it yourself without using tools!!! 
 """
 
 INSTRUCT_DESCP_FOR_CHAT = (

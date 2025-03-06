@@ -124,6 +124,15 @@ def validate_conductor(
             return False
     # if many function with a few args
     else:
+        if target_name[-1] == ' ':
+            target_name = target_name[-1]
+        if target_name not in dict_for_map_many_func.keys():
+            lines[idx][4 + sub_task_number] = func["name"].replace(" ", "")
+            pd.DataFrame(
+                lines,
+                columns=columns,
+            ).to_excel(path_total_val, index=False)
+            return True
         if func["name"].replace(" ", "") == dict_for_map_many_func[target_name]:
             lines[idx][4 + sub_task_number] = func["name"].replace(" ", "")
             pd.DataFrame(
