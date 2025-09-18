@@ -37,7 +37,7 @@ def mols_vizualization(mols: list):
 
     for i, mol in enumerate(mols):
         img = Draw.MolToImage(Chem.MolFromSmiles(mol))
-        # img.save(f"agentsbuilder/multi_agents_main_system/vizualization/mol{time[i]}_{i}.png")
+        img.save(f"agentsbuilder/multi_agents_main_system/vizualization/mol{time[i]}_{i}.png")
 
     print(f"PROCESS: Saved: {i + 1} vizualizations of SMILES")
 
@@ -94,7 +94,7 @@ def make_answer_chat_model(msg: str) -> Dict:
     Returns:
         answer (str): answer for human message from agent.
     """
-    with open("/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
+    with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
         config = yaml.safe_load(file)
     answer = ChatAgent(
         model_name=config["conductor_model"],

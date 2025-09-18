@@ -13,7 +13,7 @@ from prompting.props import props_descp_dict
 from testcase.validate_pipeline import (
     add_answers, validate_conductor, validate_decompose)
 from prompting.props import enter, props_descp_dict, props_name
-from tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
+from multi_agent_system.MADD_main.tools.tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
                    gen_mols_alzheimer, gen_mols_dyslipidemia,
                    gen_mols_lung_cancer, gen_mols_multiple_sclerosis,
                    gen_mols_parkinson, make_answer_chat_model,
