@@ -1,7 +1,8 @@
-*.xlsx
 .conda
 .vscode
 /dist
 /build
 *.pyc
 /agentsbuilder.egg-info
+/agentsbuilder_2
+/MineCraft_farm
