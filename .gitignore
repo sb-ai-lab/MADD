@@ -1,7 +1,9 @@
-*.xlsx
 .conda
 .vscode
 /dist
 /build
 *.pyc
 /agentsbuilder.egg-info
+/agentsbuilder_2
+/MineCraft_farm
+/multi_agent_system/MADD_main/config.yaml

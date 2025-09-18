@@ -1,0 +1,11 @@
+llama_api_key: KEY
+attemps: 1
+conductor_model: meta-llama/llama-3.1-70b-instruct
+frontend_address: 127.0.0.1
+frontend_port: 7869
+is_many_funcs: true
+models_port: 293
+models_address: 10.32.2.2
+prompt_type: 2
+url: https://openrouter.ai/api/v1
+validation_path: /home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx
