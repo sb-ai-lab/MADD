@@ -1,3 +1,5 @@
+"""A script for running MADD on benchmarks (S, M or L) and calculating metrics"""
+
 import os
 from os import listdir
 from os.path import isfile, join
@@ -343,8 +345,8 @@ if __name__ == "__main__":
         ), total_success.append(success), all_success_tool_selection.append(success_tool_selection), 
         bool_success_tool_selection.append(all(success_tool_selection)
                                            )
-        # это создает файл с содержанием итогового ответа и ответов от вызванных тулзов, 
-        # а 3-ья коллонка в нем - присутствуют ли все молекулы из тулзов в ответе или нет.
+        # this creates a file with the final response and responses from the called tools added,
+        # and the 3rd column in it indicates whether all the molecules from the tools are present in the response or not
         add_answers(
             [answers_store, tables_store, total_success, all_success_tool_selection, bool_success_tool_selection], "./answers_ds2_17_09_v2.xlsx"
         )
