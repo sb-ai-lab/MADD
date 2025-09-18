@@ -1,0 +1,9 @@
+fedot
+numpy
+pandas
+rdkit>=2018.09.1.0
+SmilesPE
+fastapi
+uvicorn
+lightgbm
+bio

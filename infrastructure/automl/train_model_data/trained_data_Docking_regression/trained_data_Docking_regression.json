@@ -1,0 +1,58 @@
+{
+    "total_pipeline_operations": [
+        "xgboostreg"
+    ],
+    "depth": 1,
+    "nodes": [
+        {
+            "operation_id": 0,
+            "operation_type": "xgboostreg",
+            "operation_name": "FedotXGBoostRegressionImplementation",
+            "custom_params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "dart",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30,
+                "alpha": 354,
+                "colsample_bytree": 0.1085158913348545,
+                "lambda": 248,
+                "learning_rate": 0.9387798243940875,
+                "max_depth": 2,
+                "min_child_weight": 10,
+                "scale_pos_weight": 14,
+                "subsample": 0.7782256442429535
+            },
+            "params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "dart",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30,
+                "alpha": 354,
+                "colsample_bytree": 0.1085158913348545,
+                "lambda": 248,
+                "learning_rate": 0.9387798243940875,
+                "max_depth": 2,
+                "min_child_weight": 10,
+                "scale_pos_weight": 14,
+                "subsample": 0.7782256442429535
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "/n_xgboostreg_{'n_jobs': 28, 'verbosity': 0, 'booster': 'dart', 'tree_method': 'auto', 'enable_categorical': True, 'use_eval_set': True, 'early_stopping_rounds': 30, 'alpha': 354, 'colsample_bytree': 0.1085158913348545, 'lambda': 248, 'learning_rate': 0.9387798243940875, 'max_depth': 2, 'min_child_weight': 10, 'scale_pos_weight': 14, 'subsample': 0.7782256442429535}"
+}

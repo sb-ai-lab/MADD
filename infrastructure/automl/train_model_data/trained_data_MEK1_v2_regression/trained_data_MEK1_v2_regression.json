@@ -1,0 +1,38 @@
+{
+    "total_pipeline_operations": [
+        "rfr"
+    ],
+    "depth": 1,
+    "nodes": [
+        {
+            "operation_id": 0,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28,
+                "max_features": 0.41564447188120224,
+                "min_samples_split": 8,
+                "min_samples_leaf": 1,
+                "bootstrap": false
+            },
+            "params": {
+                "n_jobs": 28,
+                "max_features": 0.41564447188120224,
+                "min_samples_split": 8,
+                "min_samples_leaf": 1,
+                "bootstrap": false
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "/n_rfr_{'n_jobs': 28, 'max_features': 0.41564447188120224, 'min_samples_split': 8, 'min_samples_leaf': 1, 'bootstrap': False}"
+}

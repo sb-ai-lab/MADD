@@ -1,0 +1,110 @@
+{
+    "total_pipeline_operations": [
+        "scaling",
+        "rfr",
+        "lgbmreg"
+    ],
+    "depth": 3,
+    "nodes": [
+        {
+            "operation_id": 2,
+            "operation_type": "scaling",
+            "operation_name": "ScalingImplementation",
+            "custom_params": {},
+            "params": {},
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_2.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 1,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28,
+                "bootstrap": false,
+                "max_features": 0.4119194814827006,
+                "min_samples_leaf": 11,
+                "min_samples_split": 3
+            },
+            "params": {
+                "n_jobs": 28,
+                "bootstrap": false,
+                "max_features": 0.4119194814827006,
+                "min_samples_leaf": 11,
+                "min_samples_split": 3
+            },
+            "nodes_from": [
+                2
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_1.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 0,
+            "operation_type": "lgbmreg",
+            "operation_name": "FedotLightGBMRegressionImplementation",
+            "custom_params": {
+                "boosting_type": "goss",
+                "max_depth": -1,
+                "bagging_fraction": 0.1311305478865582,
+                "extra_trees": true,
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 29,
+                "n_jobs": 28,
+                "verbose": -1,
+                "colsample_bytree": 0.5837651960694772,
+                "force_col_wise": true,
+                "force_row_wise ": true,
+                "learning_rate": 0.13889655883382213,
+                "min_data_in_leaf": 43,
+                "num_leaves": 244,
+                "objective": "regression",
+                "reg_alpha": 3.2886933613954876e-07,
+                "reg_lambda": 9.492136287092498,
+                "subsample": 0.8888030126271486
+            },
+            "params": {
+                "boosting_type": "goss",
+                "max_depth": -1,
+                "bagging_fraction": 0.1311305478865582,
+                "extra_trees": true,
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 29,
+                "n_jobs": 28,
+                "verbose": -1,
+                "colsample_bytree": 0.5837651960694772,
+                "force_col_wise": true,
+                "force_row_wise ": true,
+                "learning_rate": 0.13889655883382213,
+                "min_data_in_leaf": 43,
+                "num_leaves": 244,
+                "objective": "regression",
+                "reg_alpha": 3.2886933613954876e-07,
+                "reg_lambda": 9.492136287092498,
+                "subsample": 0.8888030126271486
+            },
+            "nodes_from": [
+                1
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "((/n_scaling;)/n_rfr_{'n_jobs': 28, 'bootstrap': False, 'max_features': 0.4119194814827006, 'min_samples_leaf': 11, 'min_samples_split': 3};)/n_lgbmreg_{'boosting_type': 'goss', 'max_depth': -1, 'bagging_fraction': 0.1311305478865582, 'extra_trees': True, 'enable_categorical': True, 'use_eval_set': True, 'early_stopping_rounds': 29, 'n_jobs': 28, 'verbose': -1, 'colsample_bytree': 0.5837651960694772, 'force_col_wise': True, 'force_row_wise ': True, 'learning_rate': 0.13889655883382213, 'min_data_in_leaf': 43, 'num_leaves': 244, 'objective': 'regression', 'reg_alpha': 3.2886933613954876e-07, 'reg_lambda': 9.492136287092498, 'subsample': 0.8888030126271486}"
+}

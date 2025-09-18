@@ -1,0 +1,82 @@
+{
+    "total_pipeline_operations": [
+        "rfr",
+        "xgboostreg"
+    ],
+    "depth": 3,
+    "nodes": [
+        {
+            "operation_id": 2,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28
+            },
+            "params": {
+                "n_jobs": 28
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_2.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 1,
+            "operation_type": "xgboostreg",
+            "operation_name": "FedotXGBoostRegressionImplementation",
+            "custom_params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "gbtree",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30
+            },
+            "params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "gbtree",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30
+            },
+            "nodes_from": [
+                2
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_1.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 0,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28
+            },
+            "params": {
+                "n_jobs": 28
+            },
+            "nodes_from": [
+                1,
+                2
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "((/n_rfr_{'n_jobs': 28};)/n_xgboostreg_{'n_jobs': 28, 'verbosity': 0, 'booster': 'gbtree', 'tree_method': 'auto', 'enable_categorical': True, 'use_eval_set': True, 'early_stopping_rounds': 30};;/n_rfr_{'n_jobs': 28};)/n_rfr_{'n_jobs': 28}"
+}

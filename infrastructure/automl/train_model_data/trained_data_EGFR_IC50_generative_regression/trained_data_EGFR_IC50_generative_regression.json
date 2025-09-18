@@ -1,0 +1,89 @@
+{
+    "total_pipeline_operations": [
+        "resample",
+        "rfr"
+    ],
+    "depth": 3,
+    "nodes": [
+        {
+            "operation_id": 2,
+            "operation_type": "resample",
+            "operation_name": "ResampleImplementation",
+            "custom_params": {
+                "balance": "reduce_majority",
+                "replace": false,
+                "balance_ratio": 0.6877454755188206
+            },
+            "params": {
+                "balance": "reduce_majority",
+                "replace": false,
+                "balance_ratio": 0.6877454755188206
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_2.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 1,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28,
+                "max_features": 0.38885725744960387,
+                "min_samples_split": 10,
+                "min_samples_leaf": 13,
+                "bootstrap": true
+            },
+            "params": {
+                "n_jobs": 28,
+                "max_features": 0.38885725744960387,
+                "min_samples_split": 10,
+                "min_samples_leaf": 13,
+                "bootstrap": true
+            },
+            "nodes_from": [
+                2
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_1.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 0,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28,
+                "bootstrap": true,
+                "max_features": 0.8148348898489448,
+                "min_samples_leaf": 9,
+                "min_samples_split": 11
+            },
+            "params": {
+                "n_jobs": 28,
+                "bootstrap": true,
+                "max_features": 0.8148348898489448,
+                "min_samples_leaf": 9,
+                "min_samples_split": 11
+            },
+            "nodes_from": [
+                1
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "((/n_resample_{'balance': 'reduce_majority', 'replace': False, 'balance_ratio': 0.6877454755188206};)/n_rfr_{'n_jobs': 28, 'max_features': 0.38885725744960387, 'min_samples_split': 10, 'min_samples_leaf': 13, 'bootstrap': True};)/n_rfr_{'n_jobs': 28, 'bootstrap': True, 'max_features': 0.8148348898489448, 'min_samples_leaf': 9, 'min_samples_split': 11}"
+}

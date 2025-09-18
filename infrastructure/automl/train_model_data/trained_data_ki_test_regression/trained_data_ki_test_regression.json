@@ -1,0 +1,78 @@
+{
+    "total_pipeline_operations": [
+        "xgboostreg",
+        "rfr"
+    ],
+    "depth": 2,
+    "nodes": [
+        {
+            "operation_id": 1,
+            "operation_type": "xgboostreg",
+            "operation_name": "FedotXGBoostRegressionImplementation",
+            "custom_params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "gblinear",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30,
+                "max_depth": 2,
+                "learning_rate": 0.007328677929862356,
+                "subsample": 0.35355566133019506,
+                "min_child_weight": 15,
+                "lambda": 196,
+                "alpha": 506,
+                "colsample_bytree": 0.056343458946042625,
+                "scale_pos_weight": 15
+            },
+            "params": {
+                "n_jobs": 28,
+                "verbosity": 0,
+                "booster": "gblinear",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30,
+                "max_depth": 2,
+                "learning_rate": 0.007328677929862356,
+                "subsample": 0.35355566133019506,
+                "min_child_weight": 15,
+                "lambda": 196,
+                "alpha": 506,
+                "colsample_bytree": 0.056343458946042625,
+                "scale_pos_weight": 15
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_1.pkl"
+            ],
+            "rating": null
+        },
+        {
+            "operation_id": 0,
+            "operation_type": "rfr",
+            "operation_name": "RandomForestRegressor",
+            "custom_params": {
+                "n_jobs": 28
+            },
+            "params": {
+                "n_jobs": 28
+            },
+            "nodes_from": [
+                1
+            ],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "(/n_xgboostreg_{'n_jobs': 28, 'verbosity': 0, 'booster': 'gblinear', 'tree_method': 'auto', 'enable_categorical': True, 'use_eval_set': True, 'early_stopping_rounds': 30, 'max_depth': 2, 'learning_rate': 0.007328677929862356, 'subsample': 0.35355566133019506, 'min_child_weight': 15, 'lambda': 196, 'alpha': 506, 'colsample_bytree': 0.056343458946042625, 'scale_pos_weight': 15};)/n_rfr_{'n_jobs': 28}"
+}

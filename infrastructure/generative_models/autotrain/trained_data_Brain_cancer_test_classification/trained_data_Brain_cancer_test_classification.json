@@ -1,0 +1,42 @@
+{
+    "total_pipeline_operations": [
+        "xgboost"
+    ],
+    "depth": 1,
+    "nodes": [
+        {
+            "operation_id": 0,
+            "operation_type": "xgboost",
+            "operation_name": "FedotXGBoostClassificationImplementation",
+            "custom_params": {
+                "n_jobs": 8,
+                "verbosity": 0,
+                "booster": "gbtree",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30
+            },
+            "params": {
+                "n_jobs": 8,
+                "verbosity": 0,
+                "booster": "gbtree",
+                "tree_method": "auto",
+                "enable_categorical": true,
+                "use_eval_set": true,
+                "early_stopping_rounds": 30
+            },
+            "nodes_from": [],
+            "fitted_operation_path": [
+                "fitted_operations",
+                "operation_0.pkl"
+            ],
+            "rating": null
+        }
+    ],
+    "preprocessing": [
+        "preprocessing",
+        "data_preprocessor.pkl"
+    ],
+    "descriptive_id": "/n_xgboost_{'n_jobs': 8, 'verbosity': 0, 'booster': 'gbtree', 'tree_method': 'auto', 'enable_categorical': True, 'use_eval_set': True, 'early_stopping_rounds': 30}"
+}
