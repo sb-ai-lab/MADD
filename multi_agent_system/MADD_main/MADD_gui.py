@@ -13,7 +13,6 @@ with open("multi_agent_system/MADD_main/config.yaml", "r")as file:
     config = yaml.safe_load(file)
     os.environ['URL_PRED'] = config["URL_PRED"]
     os.environ['URL_GEN'] = config["URL_GEN"]
-    os.environ['MODEL_API_ADDR_BASE_CASE'] = config["MODEL_API_ADDR_BASE_CASE"]
     
 # it must be here!!! 
 from multi_agent_system.MADD_main.MADD_chain import Chain
