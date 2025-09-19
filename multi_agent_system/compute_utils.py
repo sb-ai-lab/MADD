@@ -258,29 +258,29 @@ def exctrac_mols_and_props(mols: str) -> list:
 
 
 if __name__ == "__main__":
-    cond_per_tasks = compute_metrics("llama", "/home/alina/Desktop/LLMagentsBuilder/experiment2_2.xlsx")
-    res = pd.read_excel("/home/alina/Desktop/LLMagentsBuilder/experiment2_2.xlsx").values.tolist()
+    cond_per_tasks = compute_metrics("llama", "/home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx")
+    # res = pd.read_excel("PATH").values.tolist()
     
-    total_succ = 0
-    success_by_tasks = 0
-    empty_sample = 0
-    # cnt for count tasks
-    cnt = 0
+    # total_succ = 0
+    # success_by_tasks = 0
+    # empty_sample = 0
+    # # cnt for count tasks
+    # cnt = 0
 
-    for ex in cond_per_tasks:
-        succ = 0
-        for ans_llm, func_ans in zip([ex[1]], [ex[2]]):
-            is_correct = check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
+    # for ex in res:
+    #     succ = 0
+    #     for ans_llm, func_ans in zip([ex[1]], [ex[2]]):
+    #         is_correct = check_total_answer(exctrac_mols_and_props(func_ans), ans_llm)
 
-            succ += is_correct
-            success_by_tasks += is_correct
+    #         succ += is_correct
+    #         success_by_tasks += is_correct
 
-            cnt += 1
+    #         cnt += 1
 
-        if eval(ex[1]) == []:
-            empty_sample += 1
-        elif succ == len(eval(ex[1])):
-            total_succ += 1
+    #     if eval(ex[2]) == []:
+    #         empty_sample += 1
+    #     elif succ == len(eval(ex[2])):
+    #         total_succ += 1
 
-    print("Summ correct by tasks: ", 1 / cnt * success_by_tasks * 100 )
-    print("Total accuracy by tasks: ", cond_per_tasks * 1 / cnt * success_by_tasks)
+    # print("Summ correct by tasks: ", 1 / cnt * success_by_tasks * 100 )
+    # print("Total accuracy by tasks: ", cond_per_tasks * 1 / cnt * success_by_tasks)

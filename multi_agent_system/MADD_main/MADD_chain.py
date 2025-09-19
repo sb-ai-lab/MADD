@@ -153,10 +153,10 @@ class Chain:
             "make_answer_chat_model": make_answer_chat_model,
             "gen_mols_all_case": gen_mols_all_case,
         }
-        with open("agentsbuilder/multi_agents_main_system/config.yaml", "r") as file:
+        with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "agentsbuilder/multi_agents_main_system/vizualization/"):
+    def rm_last_saved_file(self, dir: str = "multi_agent_system/MADD_main/vizualization/"):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:

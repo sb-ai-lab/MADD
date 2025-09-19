@@ -8,18 +8,18 @@ from pathlib import Path
 
 import pandas as pd
 from protollm.agents.llama31_agents.llama31_agent import Llama31ChatModel
-from agentsbuilder.tools.three_agent_tools import (gen_mols_acquired_drug_resistance,
+from multi_agent_system.tools.three_agent_tools import (gen_mols_acquired_drug_resistance,
                                     gen_mols_alzheimer, gen_mols_dyslipidemia,
                                     gen_mols_lung_cancer,
                                     gen_mols_multiple_sclerosis,
                                     gen_mols_parkinson,
                                     request_mols_generation)
 
-from agentsbuilder.compute_metrics import (add_answers, check_total_answer,
+from multi_agent_system.compute_utils import (add_answers, check_total_answer,
                                            exctrac_mols_and_props,
                                            validate_conductor,
                                            validate_decompose)
-from agentsbuilder.system_architecture_zoo import TripleChain
+from multi_agent_system.system_architecture_zoo import TripleChain
 
 # run pipeline on test data
 if __name__ == "__main__":
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         temperature=0.0,
         max_tokens=5000,
     )
-    path = "/projects/LLMagentsBuilder/agentsbuilder/experiment3_clear.xlsx"
+    path = "multi_agent_system/experiment3_clear.xlsx"
     questions = pd.read_excel(path).values.tolist()
     tools = [
         gen_mols_parkinson,

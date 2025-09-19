@@ -1,15 +1,23 @@
+
 import re
 from datetime import datetime
 from os import listdir
+import os
 from os.path import isfile, join
 
 import gradio as gr
 import yaml
-from multi_agent_system.MADD_main.MADD_cli import Chain
 
 # Initialize the chain with the proper key
 with open("multi_agent_system/MADD_main/config.yaml", "r")as file:
     config = yaml.safe_load(file)
+    os.environ['URL_PRED'] = config["URL_PRED"]
+    os.environ['URL_GEN'] = config["URL_GEN"]
+    os.environ['MODEL_API_ADDR_BASE_CASE'] = config["MODEL_API_ADDR_BASE_CASE"]
+    
+# it must be here!!! 
+from multi_agent_system.MADD_main.MADD_chain import Chain
+
 
 chain = Chain(
     conductor_model=config["conductor_model"],
@@ -104,6 +112,7 @@ with gr.Blocks(fill_height=True) as demo:
 
     # reload text field for next users question
     bot_msg.then(lambda: gr.MultimodalTextbox(interactive=True), None, [chat_input])
+
 
 demo.launch(
     share=True,

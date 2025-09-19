@@ -19,7 +19,7 @@ from multi_agent_system.tools.two_agent_tools import (gen_mols_acquired_drug_res
                          gen_mols_multiple_sclerosis, gen_mols_parkinson,
                          request_mols_generation)
 
-from multi_agent_system.compute_metrics import (add_answers, check_total_answer,
+from multi_agent_system.compute_utils import (add_answers, check_total_answer,
                                            exctrac_mols_and_props,
                                            validate_conductor,
                                            validate_decompose)
