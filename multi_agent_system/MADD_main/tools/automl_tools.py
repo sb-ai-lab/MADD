@@ -27,9 +27,7 @@ from rdkit.Chem import Draw
 
 from multi_agent_system.MADD_main.prompting.props import props_descp_dict
 
-# TODO: add to conf, and MODEL_API_ADDR_BASE_CASE too
 conf = {"url_pred": os.environ['URL_PRED'], "url_gen": os.environ['URL_GEN']}
-
 
 def convert_to_base64(image_file_path):
     """
@@ -73,7 +71,7 @@ def generate_for_base_case(
     cuda: bool = True,
     mean_: float = 0.0,
     std_: float = 1.0,
-    url: str = f"http://{os.environ.get('MODEL_API_ADDR_BASE_CASE')}/case_generator",
+    url: str = f"{os.environ.get('URL_GEN')}/case_generator",
     case_: str = "RNDM",
     **kwargs,
 ) -> Tuple[requests.models.Response, dict]:

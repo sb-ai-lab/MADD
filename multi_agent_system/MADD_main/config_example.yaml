@@ -9,3 +9,8 @@ models_address: 10.32.2.2
 prompt_type: 2
 url: https://openrouter.ai/api/v1
 validation_path: /home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx
+
+# for automl 
+URL_PRED: http://10.64.4.254:81
+URL_GEN: http://10.32.2.2:293
+# MODEL_API_ADDR_BASE_CASE: 10.32.2.2:293
