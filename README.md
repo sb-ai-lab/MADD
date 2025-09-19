@@ -23,7 +23,7 @@ To run it, you need to:
 2) Run next command in CLI:
    
 ```bash
-python /home/alina/Desktop/LLMagentsBuilder/multi_agent_system/MADD_main/MADD_gui.py
+python multi_agent_system/MADD_main/MADD_gui.py
 ```
 3) Clik on the link. You will see something similar in your console:
 ```bash
