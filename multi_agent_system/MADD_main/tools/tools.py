@@ -37,7 +37,7 @@ def mols_vizualization(mols: list):
 
     for i, mol in enumerate(mols):
         img = Draw.MolToImage(Chem.MolFromSmiles(mol))
-        img.save(f"agentsbuilder/multi_agents_main_system/vizualization/mol{time[i]}_{i}.png")
+        img.save(f"multi_agent_system/MADD_main/vizualization/mol{time[i]}_{i}.png")
 
     print(f"PROCESS: Saved: {i + 1} vizualizations of SMILES")
 

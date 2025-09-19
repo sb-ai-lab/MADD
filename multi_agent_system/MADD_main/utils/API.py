@@ -4,7 +4,7 @@ from typing import List, Tuple, Union
 import requests
 import yaml
 
-with open("/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
+with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
     config = yaml.safe_load(file)
 models_ip_addr = config["models_address"]
 models_port = config["models_port"]
