@@ -48,7 +48,8 @@ RUN conda create -n Mol_gen_env python=3.8 && \
 #Change github repo !!!
 
 RUN cd /projects &&\
-    git clone https://${GITHUB_TOKEN}@github.com/alinzh/MADD.git 
+    git clone https://github.com/ITMO-NSS-team/MADD.git
+#git clone https://${GITHUB_TOKEN}@github.com/ITMO-NSS-team/MADD.git
 #COPY . /projects/generative_models
 WORKDIR /projects/MADD/infrastructure/generative_models
 
