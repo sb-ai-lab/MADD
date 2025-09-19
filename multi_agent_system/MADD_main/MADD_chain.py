@@ -278,8 +278,12 @@ class Chain:
         mols = []
 
         for i, task in enumerate(tasks):
+            print('—new step—')
             self.chat_history.add(task, "user")
             res, tool, mol = self.task_handler()
+            print('\n\n')
+            print('TOOL RESULTS\n: ', res)
+            print('\n\n')
             try:
                 mols.append(mol["Molecules"])
             except:

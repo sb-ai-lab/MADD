@@ -2,16 +2,40 @@ PROCESS: Received user message.
 MESSAGE: 
  Generate molecules which can bind to GSK-3beta protein. Develop selective tyrosine kinase inhibitors with strong binding affinity for BTK.
 PROCESS: All files for vizualization deleted successfully
-Decomposer time:  1.0116491317749023
+Decomposer time:  0.9298899173736572
 PROCESS: Define tasks:  ['Generate molecules which can bind to GSK-3beta protein.', 'Develop selective tyrosine kinase inhibitors with strong binding affinity for BTK.']
+—new step—
 TOOL: gen_mols_alzheimer {'num': 1}
 PROCESS: Saved: 1 vizualizations of SMILES
-Time for mols generation:  15.83109164237976
+Time for mols generation:  9.664932250976562
 PROCESS: getted response from tool
-Orchestrator time for task № 1:  17.868595838546753
+
+
+
+TOOL RESULTS
+:  | Molecules | QED | Synthetic Accessibility | PAINS | SureChEMBL | Glaxo | Brenk | BBB | IC50 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| O=C1Cc2ccccc2Cc2ccccc21 | 0.65 | 1.93 | 0 | 0 | 0 | 0 | 1 | 0 |
+
+
+
+
+Orchestrator time for task № 1:  11.450428009033203
+—new step—
 TOOL: gen_mols_multiple_sclerosis {'num': 1}
 PROCESS: Saved: 1 vizualizations of SMILES
-Time for mols generation:  5.583847999572754
+Time for mols generation:  5.405214548110962
 PROCESS: getted response from tool
-Orchestrator time for task № 2:  6.629961967468262
+
+
+
+TOOL RESULTS
+:  | Molecules | QED | Synthetic Accessibility | PAINS | SureChEMBL | Glaxo | Brenk | BBB | IC50 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CCN(CC)S(=O)(=O)c1ccc(-n2cnnn2)cc1 | 0.81 | 2.14 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+
+
+
+Orchestrator time for task № 2:  6.469586133956909
 PROCESS: The answer is ready! The answer has been sent to the user!
