@@ -12,8 +12,23 @@ A comprehensive platform for AI-driven drug discovery and cheminformatics resear
 ## 📦 Installation
 
 ```bash
-pip install git[https://github.com/alinzh/MADD.git
+pip install git+https://github.com/ITMO-NSS-team/MADD.git
 ```
+
+## Instructions for install and run AutoML models server
+
+```
+cd infrastructure/automl
+
+path/to/python3.10.exe -m venv env
+
+pip install -r requirements.txt
+
+source env/Scripts/activate
+
+python automl_api.py
+```
+In automl_api.py script you should set port where you want to run server.
 
 ## Instructions for build and run container with generative models
 
