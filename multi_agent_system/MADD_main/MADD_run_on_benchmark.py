@@ -19,7 +19,6 @@ from agents import (
     ConductorAgent,
     DecomposeAgent,
     SummaryAgent,
-    ValidateAgent,
 )
 from memory import ChatMemory
 from prompting.props import enter, props_descp_dict, props_name
@@ -128,15 +127,9 @@ class ValidationChain:
             url=url,
             is_many_funcs=is_many_funcs,
         )
-        self.chat_agent, self.summary_agent, self.validate_agent = (
+        self.chat_agent, self.summary_agent = (
             ChatAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
-            SummaryAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
-            ValidateAgent(
-                api_key=llama_api_key,
-                model_name=conductor_model,
-                url=url,
-                is_many_funcs=is_many_funcs,
-            ),
+            SummaryAgent(model_name=conductor_model, api_key=llama_api_key, url=url)
         )
         self.tools_map = {
             "request_mols_generation": request_mols_generation,
