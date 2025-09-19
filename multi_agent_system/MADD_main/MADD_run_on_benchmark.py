@@ -1,12 +1,18 @@
 """A script for running MADD on benchmarks (S, M or L) and calculating metrics"""
 
 import os
+import yaml
+
+with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+    os.environ['URL_PRED'] = config["URL_PRED"]
+    os.environ['URL_GEN'] = config["URL_GEN"]
+        
 from os import listdir
 from os.path import isfile, join
 from typing import Union
 
 import pandas as pd
-import yaml
 from agents import (ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent,
                     ValidateAgent)
 from memory import ChatMemory
@@ -320,8 +326,6 @@ class ValidationChain:
 
 if __name__ == "__main__":
     answers_store, tables_store, total_success, all_success_tool_selection, bool_success_tool_selection = [], [], [], [], []
-    with open("agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
-        config = yaml.safe_load(file)
 
     chain = ValidationChain(
         conductor_model=config["conductor_model"],
@@ -350,3 +354,13 @@ if __name__ == "__main__":
         add_answers(
             [answers_store, tables_store, total_success, all_success_tool_selection, bool_success_tool_selection], "./answers_ds2_17_09_v2.xlsx"
         )
+    
+    ssa_metrict = 100/len(total_success)*total_success.count(True)
+    ts_metrict = 100/len(bool_success_tool_selection)*bool_success_tool_selection.count(True)
+    fa_metric = ssa_metrict * ts_metrict / 100
+    
+    print(' METRICS ')
+    print('SSA: ', ssa_metrict)
+    print('TS: ', ts_metrict)
+    print('FA: ', fa_metric)
+
