@@ -1,7 +1,6 @@
 # MADD
 
-A modern Python framework for generating drug molecules for the treatment of diseases.
-
+A comprehensive platform for AI-driven drug discovery and cheminformatics research. This app enables automated molecule generation, chemical property prediction, and end-to-end machine learning pipeline construction for chemical data.
 ## ✨ Features
 
 - **Molecule Generation**: Create novel molecular structures using state-of-the-art generative models (VAE, GAN, Transformer-based).
