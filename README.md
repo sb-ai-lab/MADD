@@ -19,16 +19,21 @@ pip install git+https://github.com/alinzh/MADD.git
 ## 🚀 Quick Start
 ### Running MADD with GUI interface
 To run it, you need to:
-1) Fill out config.yaml
+1) Fill out _config.yaml_. It is important to indicate the current addresses where you have deployed generative and predictive models.
 2) Run next command in CLI:
    
 ```bash
-сюда нужно добавить коменду
+python /home/alina/Desktop/LLMagentsBuilder/multi_agent_system/MADD_main/MADD_gui.py
+```
+3) Clik on the link. You will see something similar in your console:
+```bash
+* Running on local URL:  http://127.0.0.1:7869
+* Running on public URL: https://a52bd0e6373fef859d.gradio.live
 ```
 
 ### Running MADD on our benchmark
 To run it, you need to:
-1) Fill out config.yaml and specify the path to the dataset.
+1) Fill out _config.yaml_ and specify the path to the dataset.
 2) Run in CLI:
    
 ```bash
