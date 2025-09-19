@@ -4,11 +4,11 @@ A modern Python framework for generating drug molecules for the treatment of dis
 
 ## ✨ Features
 
-- **Molecule generation**: bla bla
-- **AutoML**: bla bla
-- **Chemical properties prediction**:  bla bla
-- **Downloads data from ChemBL and BindingDB**:  bla bla
-- **Dataset processing**:  bla bla
+- **Molecule Generation**: Create novel molecular structures using state-of-the-art generative models (VAE, GAN, Transformer-based).
+- **AutoML Pipeline**: Automated machine learning workflow for model selection, hyperparameter tuning, and feature engineering specific to chemical data.
+- **Chemical Properties Prediction**: Predict key molecular properties including QED, Docking score, Synthetic Accessibility, PAINS alerts, SureChEMBL patents, Glaxo alerts, Brenk alerts, Blood-Brain Barrier permeability, and IC50 values.
+- **Database Integration**: Automated downloading and integration of bioactivity data from public repositories (ChEMBL, BindingDB).
+- **Data Processing**: Comprehensive cheminformatics pipeline for data cleaning, standardization, and feature engineering.
 
 ## 📦 Installation
 
