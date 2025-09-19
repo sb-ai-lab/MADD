@@ -25,7 +25,6 @@ from agents import (
     ConductorAgent,
     DecomposeAgent,
     SummaryAgent,
-    ValidateAgent,
 )
 from memory import ChatMemory
 from prompting.props import enter, props_descp_dict, props_name
@@ -49,13 +48,13 @@ class Chain:
     """
     A multi-agent system chain for processing tasks using large language models (LLMs)
     and generating molecular structures for various medical conditions. The system
-    uses multiple agents, including decomposition, conductor, validation, and summarization
+    uses multiple agents, including decomposition, conductor, and summarization
     agents, to achieve the desired outputs.
 
     Attributes
     ----------
     attempt : int
-        Maximum number of attempts to fix a function after failed validation.
+        Maximum number of attempts.
     msg_for_store : int
         Number of messages to store in the chat memory.
     chat_history : ChatMemory
@@ -68,8 +67,6 @@ class Chain:
         Agent that manages direct communication with the user when task execution fails.
     summary_agent : SummaryAgent
         Agent that summarizes results when multiple subtasks are processed.
-    validate_agent : ValidateAgent
-        Agent responsible for validating tools and outputs from the conductor agent.
     tools_map : dict
         Mapping of tool names to their corresponding Python functions for molecule generation.
     conf : dict
@@ -143,15 +140,9 @@ class Chain:
             url=url,
             is_many_funcs=is_many_funcs,
         )
-        self.chat_agent, self.summary_agent, self.validate_agent = (
+        self.chat_agent, self.summary_agent = (
             ChatAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
-            SummaryAgent(model_name=conductor_model, api_key=llama_api_key, url=url),
-            ValidateAgent(
-                api_key=llama_api_key,
-                model_name=conductor_model,
-                url=url,
-                is_many_funcs=is_many_funcs,
-            ),
+            SummaryAgent(model_name=conductor_model, api_key=llama_api_key, url=url)
         )
         self.tools_map = {
             "request_mols_generation": request_mols_generation,
@@ -218,7 +209,6 @@ class Chain:
                         "make_answer_chat_model",
                         "",
                     )
-                temp_chat_history = copy.deepcopy(self.chat_history)
 
                 if not (tool):
                     tool = self.conductor_agent.call(self.chat_history.store)
@@ -230,22 +220,6 @@ class Chain:
 
                 print(f'TOOL: {tool["name"]} {tool["parameters"]}')
 
-                # validate by instruction
-                success, valid_tool = self.validate_agent.validate_tool(
-                    self.chat_history.store[-1],
-                    tool,
-                    self.chat_history.store[:-1],
-                )
-
-                if not (success):
-                    if attempt >= self.attempt:
-                        attempt = 0
-                    else:
-                        attempt += 1
-                        self.chat_history = temp_chat_history
-                        tool = valid_tool
-                        print("PROCESS: Validation for function to call not passed")
-                        continue
                 # False - cos yet not passed function calling
                 success = False
 
@@ -266,6 +240,8 @@ class Chain:
 
     def run(self, human_message: str) -> str:
         """Run chain"""
+        print('PROCESS: Received user message.')
+        print('MESSAGE: \n', human_message)
         start_time = time.time()
 
         def collect_table_answer(finally_ans: str, tables: list) -> list:
@@ -286,6 +262,7 @@ class Chain:
 
         if human_message == "" or human_message == " ":
             response = "You didn't write anything - can I help you with something?"
+            print('PROCESS: The answer is ready! The answer has been sent to the user!')
             return response
 
         tasks = self.decompose_agent.call(human_message)
@@ -348,7 +325,7 @@ class Chain:
             finally_ans += (
                 enter + "Description of properties in table: \n" + descp_props
             )
-
+        print('PROCESS: The answer is ready! The answer has been sent to the user!')
         return str(finally_ans).replace("[N+]", "[N+\]")
 
 
