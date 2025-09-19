@@ -8,10 +8,10 @@ TOOL: gen_mols_alzheimer {'num': 1}
 PROCESS: Saved: 1 vizualizations of SMILES
 Time for mols generation:  15.83109164237976
 PROCESS: getted response from tool
-Conductor time for task № 1:  17.868595838546753
+Orchestrator time for task № 1:  17.868595838546753
 TOOL: gen_mols_multiple_sclerosis {'num': 1}
 PROCESS: Saved: 1 vizualizations of SMILES
 Time for mols generation:  5.583847999572754
 PROCESS: getted response from tool
-Conductor time for task № 2:  6.629961967468262
+Orchestrator time for task № 2:  6.629961967468262
 PROCESS: The answer is ready! The answer has been sent to the user!
