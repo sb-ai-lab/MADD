@@ -1,10 +1,10 @@
 import os
 from typing import Dict, List, Optional
 from urllib.parse import quote
-from langchain.tools import tool
 
 import pandas as pd
 import requests
+from langchain.tools import tool
 
 VALID_AFFINITY_TYPES = ["Ki", "Kd", "IC50"]
 
@@ -64,12 +64,19 @@ def fetch_BindingDB_data(params: Dict) -> str:
 
         # Step 2: Retrieve affinity data from BindingDB
         affinity_entries = fetch_affinity_bindingdb(uniprot_id, affinity_type, cutoff)
-        pd.DataFrame(affinity_entries).to_csv(f'MADD/ds/molecules_{params.get("protein_name")}.csv')
-        
-        txt_report = f"Found {len(affinity_entries)} entrys for {protein_name}. Saved to " + f'MADD/ds/molecules_{params.get("protein_name")}.csv'
+        pd.DataFrame(affinity_entries).to_csv(
+            f'MADD/ds/molecules_{params.get("protein_name")}.csv'
+        )
+
+        txt_report = (
+            f"Found {len(affinity_entries)} entrys for {protein_name}. Saved to "
+            + f'MADD/ds/molecules_{params.get("protein_name")}.csv'
+        )
         print(txt_report)
-        
-        os.environ['DS_FROM_BINDINGDB'] = f'MADD/ds/molecules_{params.get("protein_name")}.csv'
+
+        os.environ["DS_FROM_BINDINGDB"] = (
+            f'MADD/ds/molecules_{params.get("protein_name")}.csv'
+        )
         return txt_report
 
     except Exception as e:
@@ -203,18 +210,20 @@ def fetch_chembl_data(
             )
         except (KeyError, TypeError):
             continue
-        
-    if len(results) < 1:
-        return 'No results found from ChemBL!'
-        
-    pd.DataFrame(results).to_csv(f'MADD/ds/molecules_{target_name}.csv')
-        
-    txt_report = f"Found {len(results)} entrys for {target_name}. Saved to " + f'MADD/ds/molecules_{target_name}.csv'
-    print(txt_report)
-        
-    os.environ['DS_FROM_CHEMBL'] = f'MADD/ds/molecules_{target_name}.csv'
-    return txt_report
 
+    if len(results) < 1:
+        return "No results found from ChemBL!"
+
+    pd.DataFrame(results).to_csv(f"MADD/ds/molecules_{target_name}.csv")
+
+    txt_report = (
+        f"Found {len(results)} entrys for {target_name}. Saved to "
+        + f"MADD/ds/molecules_{target_name}.csv"
+    )
+    print(txt_report)
+
+    os.environ["DS_FROM_CHEMBL"] = f"MADD/ds/molecules_{target_name}.csv"
+    return txt_report
 
 
 if __name__ == "__main__":
@@ -231,7 +240,7 @@ if __name__ == "__main__":
 
     binding_data = fetch_BindingDB_data(params)
     print(f"Data fetched: {len(binding_data)} entries")
-    
+
     # fetch_chembl_data('KRAS', affinity_type="IC50")
 
     # Save data to Excel

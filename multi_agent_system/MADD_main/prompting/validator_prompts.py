@@ -1,11 +1,16 @@
 import json
 
 from prompting.metadata_tools_v1 import (
-    gen_mols_acquired_drug_resistance_metadata, gen_mols_alzheimer_metadata,
-    gen_mols_dyslipidemia_metadata, gen_mols_lung_cancer_metadata,
-    gen_mols_multiple_sclerosis_metadata, gen_mols_parkinson_metadata,
-    make_answer_chat_model_metadata, mols_gen_metadata,
-    mols_gen_total_metadata)
+    gen_mols_acquired_drug_resistance_metadata,
+    gen_mols_alzheimer_metadata,
+    gen_mols_dyslipidemia_metadata,
+    gen_mols_lung_cancer_metadata,
+    gen_mols_multiple_sclerosis_metadata,
+    gen_mols_parkinson_metadata,
+    make_answer_chat_model_metadata,
+    mols_gen_metadata,
+    mols_gen_total_metadata,
+)
 
 INSTRUCT_TOOLS_LARGE = json.dumps(
     [

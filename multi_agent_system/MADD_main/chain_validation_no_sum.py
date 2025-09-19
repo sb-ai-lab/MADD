@@ -1,25 +1,34 @@
 import os
+import time
 from os import listdir
 from os.path import isfile, join
 from typing import Union
-import time
+
 import pandas as pd
 import yaml
-from agents import (ChatAgent, DecomposeAgent, SummaryAgent,
-                    ValidateAgent)
 from additional_agents_for_exps import ConductorSummarizerAgent
+from agents import ChatAgent, DecomposeAgent, SummaryAgent, ValidateAgent
 from memory import ChatMemory
-from prompting.props import props_descp_dict
-from testcase.validate_pipeline import (
-    add_answers, validate_conductor, validate_decompose)
 from prompting.props import enter, props_descp_dict, props_name
-from multi_agent_system.MADD_main.tools.tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
-                   gen_mols_alzheimer, gen_mols_dyslipidemia,
-                   gen_mols_lung_cancer, gen_mols_multiple_sclerosis,
-                   gen_mols_parkinson, make_answer_chat_model,
-                   request_mols_generation)
-from testcase.validate_pipeline import exctrac_mols_and_props, check_total_answer
+from testcase.validate_pipeline import (
+    add_answers,
+    check_total_answer,
+    exctrac_mols_and_props,
+    validate_conductor,
+    validate_decompose,
+)
 
+from multi_agent_system.MADD_main.tools.tools import (
+    gen_mols_acquired_drug_resistance,
+    gen_mols_all_case,
+    gen_mols_alzheimer,
+    gen_mols_dyslipidemia,
+    gen_mols_lung_cancer,
+    gen_mols_multiple_sclerosis,
+    gen_mols_parkinson,
+    make_answer_chat_model,
+    request_mols_generation,
+)
 
 TOTAL_QUERYS = 0
 
@@ -95,9 +104,7 @@ class ValidationChain:
             raise ValueError("API key for VSE GPT is missing.")
         self.attempt = attempt
         self.msg_for_store = msg_for_store
-        self.chat_history = ChatMemory(
-            msg_limit=10, model_type=conductor_model
-        )
+        self.chat_history = ChatMemory(msg_limit=10, model_type=conductor_model)
         self.validation_path = validation_path
         self.decompose_agent = DecomposeAgent(conductor_model)
         self.conductor_agent = ConductorSummarizerAgent(
@@ -127,10 +134,16 @@ class ValidationChain:
             "make_answer_chat_model": make_answer_chat_model,
             "gen_mols_all_case": gen_mols_all_case,
         }
-        with open("/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
+        with open(
+            "/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml",
+            "r",
+        ) as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/vizualization/"):
+    def rm_last_saved_file(
+        self,
+        dir: str = "/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/vizualization/",
+    ):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:
@@ -183,29 +196,32 @@ class ValidationChain:
                     tool = self.conductor_agent.call(self.chat_history.store)
                     success = False
                     if isinstance(tool, list):
-                        print('Success in format: tools in list.')
+                        print("Success in format: tools in list.")
                         free_response_store, tables_store, mols = [], [], []
                         for t in tool:
                             start_2 = time.time()
                             res, mol = self.call_tool(t)
                             end_2 = time.time()
                             duration = end_2 - start_2
-                            print('Tool time: ', duration)
+                            print("Tool time: ", duration)
                             print("PROCESS: getted response from tool")
                             success = True
-                            
+
                             self.chat_history.add(str(tool), "assistant")
                             self.chat_history.add(str(res), "ipython")
-                            
+
                             if t == "make_answer_chat_model":
                                 free_response_store.append(res)
                             else:
                                 tables_store.append(res)
                                 mols.append(mol)
-                            
+
                             try:
                                 is_valid = validate_conductor(
-                                    TOTAL_QUERYS, t, sub_task_number, self.validation_path
+                                    TOTAL_QUERYS,
+                                    t,
+                                    sub_task_number,
+                                    self.validation_path,
                                 )
                                 sub_task_number += 1
                                 print(is_valid)
@@ -213,21 +229,24 @@ class ValidationChain:
                                 sub_task_number += 1
                                 print("VALIDATION ERROR: ", e)
                     else:
-                        print('Warring: tool is dict.')
-                        print(f'TOOL: {tool}')
+                        print("Warring: tool is dict.")
+                        print(f"TOOL: {tool}")
                         start_2 = time.time()
                         res, mol = self.call_tool(tool)
                         end_2 = time.time()
                         duration = end_2 - start_2
-                        print('Tool time: ', duration)
+                        print("Tool time: ", duration)
                         success = True
-                        
+
                         self.chat_history.add(str(tool), "assistant")
                         self.chat_history.add(str(res), "ipython")
-                        
+
                         try:
                             is_valid = validate_conductor(
-                                TOTAL_QUERYS, tool, sub_task_number, self.validation_path
+                                TOTAL_QUERYS,
+                                tool,
+                                sub_task_number,
+                                self.validation_path,
                             )
                             sub_task_number += 1
                             print(is_valid)
@@ -276,7 +295,7 @@ class ValidationChain:
         # limit for message store varies depending on the number of subtasks
         self.chat_history.msg_limit = 20
         mols, answers_store = [], []
-                
+
         for i, task in enumerate(tasks):
             self.chat_history.add(task, "user")
 
@@ -313,9 +332,9 @@ class ValidationChain:
         TOTAL_QUERYS += 1
 
         # if tables_store != [] and descp_props != "":
-            # finally_ans += (
-            #     enter + "Description of properties in table: \n" + descp_props
-            # )
+        # finally_ans += (
+        #     enter + "Description of properties in table: \n" + descp_props
+        # )
 
         is_match_full = True
         true_mols, total_success = [], []
@@ -342,7 +361,10 @@ class ValidationChain:
 
 if __name__ == "__main__":
     answers_store, tables_store, total_success = [], [], []
-    with open("/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml", "r") as file:
+    with open(
+        "/home/alina/Desktop/LLMagentsBuilder/agentsbuilder/six_case_multi_agents_proto/config.yaml",
+        "r",
+    ) as file:
         config = yaml.safe_load(file)
 
     chain = ValidationChain(
@@ -364,7 +386,8 @@ if __name__ == "__main__":
                 tables
             ), total_success.append(success)
             add_answers(
-                [answers_store, tables_store, total_success], "./answers_no_sum_ds2.xlsx"
+                [answers_store, tables_store, total_success],
+                "./answers_no_sum_ds2.xlsx",
             )
         except:
             pass

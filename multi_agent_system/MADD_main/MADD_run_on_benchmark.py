@@ -1,32 +1,47 @@
 """A script for running MADD on benchmarks (S, M or L) and calculating metrics"""
 
 import os
+
 import yaml
 
 with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
     config = yaml.safe_load(file)
-    os.environ['URL_PRED'] = config["URL_PRED"]
-    os.environ['URL_GEN'] = config["URL_GEN"]
-        
+    os.environ["URL_PRED"] = config["URL_PRED"]
+    os.environ["URL_GEN"] = config["URL_GEN"]
+
 from os import listdir
 from os.path import isfile, join
 from typing import Union
 
 import pandas as pd
-from agents import (ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent,
-                    ValidateAgent)
+from agents import (
+    ChatAgent,
+    ConductorAgent,
+    DecomposeAgent,
+    SummaryAgent,
+    ValidateAgent,
+)
 from memory import ChatMemory
-from prompting.props import props_descp_dict
-from testcase.validate_pipeline import (
-    add_answers, validate_conductor, validate_decompose)
 from prompting.props import enter, props_descp_dict, props_name
-from multi_agent_system.MADD_main.tools.tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
-                   gen_mols_alzheimer, gen_mols_dyslipidemia,
-                   gen_mols_lung_cancer, gen_mols_multiple_sclerosis,
-                   gen_mols_parkinson, make_answer_chat_model,
-                   request_mols_generation)
-from testcase.validate_pipeline import exctrac_mols_and_props, check_total_answer
+from testcase.validate_pipeline import (
+    add_answers,
+    check_total_answer,
+    exctrac_mols_and_props,
+    validate_conductor,
+    validate_decompose,
+)
 
+from multi_agent_system.MADD_main.tools.tools import (
+    gen_mols_acquired_drug_resistance,
+    gen_mols_all_case,
+    gen_mols_alzheimer,
+    gen_mols_dyslipidemia,
+    gen_mols_lung_cancer,
+    gen_mols_multiple_sclerosis,
+    gen_mols_parkinson,
+    make_answer_chat_model,
+    request_mols_generation,
+)
 
 TOTAL_QUERYS = 0
 
@@ -137,7 +152,9 @@ class ValidationChain:
         with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "multi_agent_system/MADD_main/vizualization/"):
+    def rm_last_saved_file(
+        self, dir: str = "multi_agent_system/MADD_main/vizualization/"
+    ):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:
@@ -188,14 +205,14 @@ class ValidationChain:
 
                 if not (tool):
                     tool = self.conductor_agent.call([self.chat_history.store[-1]])
-                    
+
                     try:
-                        # это валидирует выбор тулза агентом Кондуктором (==Оркестратором), записывает функцию в файл исходный 
+                        # это валидирует выбор тулза агентом Кондуктором (==Оркестратором), записывает функцию в файл исходный
                         is_valid = validate_conductor(
                             TOTAL_QUERYS, tool, sub_task_number, self.validation_path
                         )
                         print(is_valid)
-                        if not(is_valid):
+                        if not (is_valid):
                             print(is_valid)
                     except Exception as e:
                         print("VALIDATION ERROR: ", e)
@@ -208,7 +225,7 @@ class ValidationChain:
                 print(f'TOOL: {tool["name"]} {tool["parameters"]}')
 
                 success = False
-                
+
                 res, mol = self.call_tool(tool)
                 print("PROCESS: getted response from tool")
                 success = True
@@ -305,7 +322,12 @@ class ValidationChain:
         true_mols, total_success = [], []
 
         if tables_store == []:
-            return [answers_store, tables_store, total_success, full_success_tool_selection]
+            return [
+                answers_store,
+                tables_store,
+                total_success,
+                full_success_tool_selection,
+            ]
 
         for j in range(len(tables_store)):
             true_mol = tables_store[j]
@@ -321,11 +343,22 @@ class ValidationChain:
         for i in range(len(tables_store)):
             answers_store.append(finally_ans)
 
-        return [answers_store, tables_store, total_success[0], full_success_tool_selection]
+        return [
+            answers_store,
+            tables_store,
+            total_success[0],
+            full_success_tool_selection,
+        ]
 
 
 if __name__ == "__main__":
-    answers_store, tables_store, total_success, all_success_tool_selection, bool_success_tool_selection = [], [], [], [], []
+    (
+        answers_store,
+        tables_store,
+        total_success,
+        all_success_tool_selection,
+        bool_success_tool_selection,
+    ) = ([], [], [], [], [])
 
     chain = ValidationChain(
         conductor_model=config["conductor_model"],
@@ -342,25 +375,34 @@ if __name__ == "__main__":
         try:
             answers, tables, success, success_tool_selection = chain.run(q[1])
         except:
-            print('Error in chain!')
-            answers, tables, success, success_tool_selection = [''], [''], True, [False]
+            print("Error in chain!")
+            answers, tables, success, success_tool_selection = [""], [""], True, [False]
         answers_store.append(answers), tables_store.append(
             tables
-        ), total_success.append(success), all_success_tool_selection.append(success_tool_selection), 
-        bool_success_tool_selection.append(all(success_tool_selection)
-                                           )
+        ), total_success.append(success), all_success_tool_selection.append(
+            success_tool_selection
+        ),
+        bool_success_tool_selection.append(all(success_tool_selection))
         # this creates a file with the final response and responses from the called tools added,
         # and the 3rd column in it indicates whether all the molecules from the tools are present in the response or not
         add_answers(
-            [answers_store, tables_store, total_success, all_success_tool_selection, bool_success_tool_selection], "./answers_ds2_17_09_v2.xlsx"
+            [
+                answers_store,
+                tables_store,
+                total_success,
+                all_success_tool_selection,
+                bool_success_tool_selection,
+            ],
+            "./answers_ds2_17_09_v2.xlsx",
         )
-    
-    ssa_metrict = 100/len(total_success)*total_success.count(True)
-    ts_metrict = 100/len(bool_success_tool_selection)*bool_success_tool_selection.count(True)
-    fa_metric = ssa_metrict * ts_metrict / 100
-    
-    print(' METRICS ')
-    print('SSA: ', ssa_metrict)
-    print('TS: ', ts_metrict)
-    print('FA: ', fa_metric)
 
+    ssa_metrict = 100 / len(total_success) * total_success.count(True)
+    ts_metrict = (
+        100 / len(bool_success_tool_selection) * bool_success_tool_selection.count(True)
+    )
+    fa_metric = ssa_metrict * ts_metrict / 100
+
+    print(" METRICS ")
+    print("SSA: ", ssa_metrict)
+    print("TS: ", ts_metrict)
+    print("FA: ", fa_metric)

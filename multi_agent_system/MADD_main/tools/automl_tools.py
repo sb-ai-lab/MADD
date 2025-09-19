@@ -1,33 +1,24 @@
+import base64
 import json
 import os
 import subprocess
 import sys
 import time
+from datetime import datetime
 from multiprocessing import Process
 from typing import List, Tuple, Union
-import pandas as pd
-import requests
-
-import base64
-import json
-import os
-from typing import Tuple
 
 import pandas as pd
 import requests
-from PIL import Image
-
-import time
-from datetime import datetime
-
-import pandas as pd
 from langchain.tools import tool
+from PIL import Image
 from rdkit import Chem
 from rdkit.Chem import Draw
 
 from multi_agent_system.MADD_main.prompting.props import props_descp_dict
 
-conf = {"url_pred": os.environ['URL_PRED'], "url_gen": os.environ['URL_GEN']}
+conf = {"url_pred": os.environ["URL_PRED"], "url_gen": os.environ["URL_GEN"]}
+
 
 def convert_to_base64(image_file_path):
     """
@@ -160,7 +151,23 @@ def filter_valid_strings(
         raise ValueError(e)
 
 
-temp = ['| Molecules | QED | Synthetic Accessibility | PAINS | SureChEMBL | Glaxo | Brenk | BBB | IC50 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| Cc1ccc(C2=C(c3ccc(N4CCN(C)CC4)cc(=O)n3)C(=O)N(C)C2=O)c(C(=O)N2CCCC2)c1 | 0.59 | 2.81 | 0 | 0 | 0 | 1 | 1 | 1 |\n', {'Molecules': ['Cc1ccc(C2=C(c3ccc(N4CCN(C)CC4)cc(=O)n3)C(=O)N(C)C2=O)c(C(=O)N2CCCC2)c1'], 'QED': [0.59], 'Synthetic Accessibility': [2.81], 'PAINS': [0], 'SureChEMBL': [0], 'Glaxo': [0], 'Brenk': [1], 'BBB': [1], 'IC50': [1]}]
+temp = [
+    "| Molecules | QED | Synthetic Accessibility | PAINS | SureChEMBL | Glaxo | Brenk | BBB | IC50 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| Cc1ccc(C2=C(c3ccc(N4CCN(C)CC4)cc(=O)n3)C(=O)N(C)C2=O)c(C(=O)N2CCCC2)c1 | 0.59 | 2.81 | 0 | 0 | 0 | 1 | 1 | 1 |\n",
+    {
+        "Molecules": [
+            "Cc1ccc(C2=C(c3ccc(N4CCN(C)CC4)cc(=O)n3)C(=O)N(C)C2=O)c(C(=O)N2CCCC2)c1"
+        ],
+        "QED": [0.59],
+        "Synthetic Accessibility": [2.81],
+        "PAINS": [0],
+        "SureChEMBL": [0],
+        "Glaxo": [0],
+        "Brenk": [1],
+        "BBB": [1],
+        "IC50": [1],
+    },
+]
+
 
 def get_props_description(props: list) -> str:
     descp = """
@@ -247,19 +254,18 @@ def gen_mols_alzheimer(num: int) -> list:
     Returns:
         list: list of generated molecules
     """
-    print('TOOL: alzheimer')
+    print("TOOL: alzheimer")
     params = {"numb_mol": num, "cuda": True, "case_": "Alzhmr"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
 
     return [res, mol_dict]
-
 
 
 def gen_mols_multiple_sclerosis(num: int) -> list:
@@ -274,16 +280,16 @@ def gen_mols_multiple_sclerosis(num: int) -> list:
     Returns:
         list: list of generated molecules
     """
-    print('TOOL: sclerosis')
+    print("TOOL: sclerosis")
     params = {"numb_mol": num, "cuda": True, "case_": "Sklrz"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
     return [res, mol_dict]
 
 
@@ -297,16 +303,16 @@ def gen_mols_dyslipidemia(num: int) -> list:
     Args:
     num (int): number of molecules to generate
     """
-    print('TOOL: dyslipidemia')
+    print("TOOL: dyslipidemia")
     params = {"numb_mol": num, "cuda": True, "case_": "Dslpdm"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
     return [res, mol_dict]
 
 
@@ -319,16 +325,16 @@ def gen_mols_acquired_drug_resistance(num: int) -> list:
     Args:
     num (int): number of molecules to generate
     """
-    print('TOOL: Drug_Resistance')
+    print("TOOL: Drug_Resistance")
     params = {"numb_mol": num, "cuda": True, "case_": "TBLET"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
     return [res, mol_dict]
 
 
@@ -343,16 +349,16 @@ def gen_mols_lung_cancer(num: int) -> list:
     Args:
     num (int): number of molecules to generate
     """
-    print('TOOL: lung cancer')
+    print("TOOL: lung cancer")
     params = {"numb_mol": num, "cuda": True, "case_": "Cnsr"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
     return [res, mol_dict]
 
 
@@ -363,16 +369,16 @@ def gen_mols_parkinson(num: int) -> list:
     Args:
     num (int): number of molecules to generate
     """
-    print('TOOL: Parkinson')
+    print("TOOL: Parkinson")
     params = {"numb_mol": num, "cuda": True, "case_": "Prkns"}
     _, mol_dict = generate_for_base_case(**params)
 
     res = make_markdown_table(mol_dict)
 
     mols_vizualization(mol_dict["Molecules"])
-    print('GEN_MOLECULES: ')
+    print("GEN_MOLECULES: ")
     print(mol_dict)
-    print('END_GEN_MOLECULES')
+    print("END_GEN_MOLECULES")
     return [res, mol_dict]
 
 
@@ -418,14 +424,17 @@ def get_case_state_from_server(case: str, url: str = "pred") -> Union[dict, str]
         url = conf["url_pred"]
     else:
         url = conf["url_gen"]
-        
-    if case.strip().lower() in """- Alzheimer's disease: 'alzheimer', 'alzheimer's', 'alzheimers'
+
+    if (
+        case.strip().lower()
+        in """- Alzheimer's disease: 'alzheimer', 'alzheimer's', 'alzheimers'
     - Parkinson's disease: 'parkinson', 'parkinson's', 'parkinsons'
     - Multiple sclerosis: 'multiple sclerosis', 'sclerosis'
     - Dyslipidemia: 'dyslipidemia'
     - Acquired drug resistance: 'acquired drug resistance', 'drug resistance'
-    - Lung cancer: 'lung cancer', 'lung'""":
-        return {case: 'generative model is exist!'}
+    - Lung cancer: 'lung cancer', 'lung'"""
+    ):
+        return {case: "generative model is exist!"}
 
     url_ = url.split("http://")[1]
     resp = requests.get("http://" + url_.split("/")[0] + "/check_state")
@@ -623,6 +632,7 @@ def ml_dl_training(
             return state["state"][case]
         except:
             return f"Case with name: {case} not found"
+
     ml_ready = False
     train_ml_with_data(
         case=case,
@@ -643,10 +653,10 @@ def ml_dl_training(
                     ml_ready = True
             time.sleep(7)
         except:
-            print('Something went wrong!!!')
-        
+            print("Something went wrong!!!")
+
     if ml_ready:
-        print('ML-model is ready.')
+        print("ML-model is ready.")
     try:
         train_gen_with_data(
             case=case,
@@ -660,8 +670,7 @@ def ml_dl_training(
         )
         print("Start training gen model for case: ", case)
     except:
-        print('Something went wrong!!!')
-
+        print("Something went wrong!!!")
 
 
 @tool
@@ -944,4 +953,7 @@ if __name__ == "__main__":
     #     "IC50",
     #     ["IC50"],
     # )
-    ml_dl_training('IC50_prediction', '/Users/alina/Desktop/ITMO/MADD-CoScientist/data_cyk_short.csv')
+    ml_dl_training(
+        "IC50_prediction",
+        "/Users/alina/Desktop/ITMO/MADD-CoScientist/data_cyk_short.csv",
+    )
