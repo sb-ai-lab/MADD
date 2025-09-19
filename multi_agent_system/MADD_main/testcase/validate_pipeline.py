@@ -1,7 +1,9 @@
 """
 Modules for assessing the quality of the pipeline and individual agents
 """
+
 import re
+
 import pandas as pd
 
 dict_for_map_many_func = {
@@ -23,6 +25,7 @@ dict_for_map_few_func = {
     "Parkinson": "Prkns",
 }
 
+
 def exctrac_mols_and_props(mols: str) -> list:
     pattern = r"\| ([A-Za-z0-9@+\-=#\[\]\(\)\\\/\.\*]+) \|"
 
@@ -33,15 +36,25 @@ def exctrac_mols_and_props(mols: str) -> list:
 
 def check_total_answer(true_answers: list[str], total_answer: str) -> bool:
     for true_ans in true_answers:
-        if true_ans == 'Molecules':
+        if true_ans == "Molecules":
             continue
         if not (true_ans in total_answer):
             return False
     return True
 
+
 def add_answers(answers: list, path: str):
     llm_res, tool_res, check, ts, bool_ts = answers
-    pd.DataFrame({'llm_result': llm_res, 'tool_result': tool_res, 'check': check, 'ts': ts, 'bool_ts': bool_ts}).to_excel(path)
+    pd.DataFrame(
+        {
+            "llm_result": llm_res,
+            "tool_result": tool_res,
+            "check": check,
+            "ts": ts,
+            "bool_ts": bool_ts,
+        }
+    ).to_excel(path)
+
 
 def validate_decompose(
     idx: int,

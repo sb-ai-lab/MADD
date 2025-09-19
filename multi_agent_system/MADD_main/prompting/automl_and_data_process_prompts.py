@@ -74,4 +74,3 @@ automl_prompt = f"""You have access to two types of generative models and to too
         No more then 5 steps (tool calling)!!!
         
         So, your task from the user: """
-

@@ -6,22 +6,27 @@ Process:
 - Pipeline starts. 
 - Results are written to the same file.
 """
-from langchain.agents import (
-    create_structured_chat_agent,
-    AgentExecutor
-)
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.prompts import SystemMessagePromptTemplate, HumanMessagePromptTemplate
+
 import pandas as pd
+from langchain.agents import AgentExecutor, create_structured_chat_agent
+from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts import (
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
+)
 from protollm.agents.llama31_agents.llama31_agent import Llama31ChatModel
-from multi_agent_system.MADD_main.testcase.validate_pipeline import \
-    exctrac_mols_and_props, check_total_answer, validate_decompose, validate_conductor, add_answers
 from tools.single_agent_tools import tools
 
-
+from multi_agent_system.MADD_main.testcase.validate_pipeline import (
+    add_answers,
+    check_total_answer,
+    exctrac_mols_and_props,
+    validate_conductor,
+    validate_decompose,
+)
 
 # Create the system and human prompts
-system_prompt = '''
+system_prompt = """
 Respond to the human as helpfully and accurately as possible. You have access to the following tools:
 
 {tools}
@@ -57,11 +62,11 @@ For example answer must consist table (!):
 0.6727786031171711 | 1.9616124655434675 | 0 | 0 | 0 | 0 | 0 | 0 |\n| Cc1ccc(C)c(-n2c(=O)c3ccccc3n(Cc3ccccc3)c2=O)c1 
 | 0.5601042919484651 | 1.920664623176684 | 0 | 0 | 0 | 0 | 1 | 1 |\n| Cc1ccc2c(c1)N(C(=O)CN1C(=O)NC3(CCCc4ccccc43)C1=O)CC2 
 | 0.8031696199670261 | 3.3073398307371438 | 0 | 0 | 0 | 1 | 1 | 0 |"
-'''
+"""
 
-human_prompt = '''{input}
+human_prompt = """{input}
 {agent_scratchpad}
-(Reminder to respond in a JSON blob no matter what)'''
+(Reminder to respond in a JSON blob no matter what)"""
 
 system_message = SystemMessagePromptTemplate.from_template(
     system_prompt,
@@ -83,19 +88,16 @@ prompt = ChatPromptTemplate.from_messages(
 
 # Initialize the custom LLM
 llm = Llama31ChatModel(
-    api_key='API_KEY',
+    api_key="API_KEY",
     base_url="BASE_URL",
     model="meta-llama/llama-3.1-70b-instruct",
     temperature=0.0,
-    max_tokens=5000
+    max_tokens=5000,
 )
 
 # Create the structured chat agent
 agent = create_structured_chat_agent(
-    llm=llm,
-    tools=tools,
-    prompt=prompt,
-    stop_sequence=True
+    llm=llm, tools=tools, prompt=prompt, stop_sequence=True
 )
 
 # Create the AgentExecutor
@@ -105,59 +107,58 @@ agent_executor = AgentExecutor.from_agent_and_tools(
     verbose=True,
     return_intermediate_steps=True,
     output_keys=["output"],
-    early_stopping_method="generate"
+    early_stopping_method="generate",
 )
 
 # Example usage of the agent
 if __name__ == "__main__":
     req_error_cnt = 0
     answers_store, store_tools_answers, total_success = [], [], []
-    path = './exp3_clean.xlsx'
+    path = "./exp3_clean.xlsx"
     questions = pd.read_excel(path).values.tolist()
-    
+
     answers_store, store_tools_answers, total_success
-    
+
     for i, q in enumerate(questions):
-        print('Task № ', i)
+        print("Task № ", i)
         try:
-            response = agent_executor.invoke({
-                "input": q[1]
-            })
-            
+            response = agent_executor.invoke({"input": q[1]})
+
             validate_decompose(i, response["intermediate_steps"], path)
             for n, tools_pred in enumerate(response["intermediate_steps"]):
                 name_tool = tools_pred[0].tool
-                func = {'name': name_tool}
+                func = {"name": name_tool}
                 validate_conductor(i, func, n, path)
-                
+
             # Access the output
             final_answer = response["output"]
             # Print the final answer
             print(f"Agent's Response: \n {final_answer}")
-            
+
             true_mols, answers = [], []
-            is_match_full = True   
-            
+            is_match_full = True
+
             for i in range(len(response["intermediate_steps"])):
                 true_mol = response["intermediate_steps"][i][1]
                 mols_list = exctrac_mols_and_props(true_mol)
                 true_mols.append(true_mol)
                 answers.append(final_answer)
                 if check_total_answer(mols_list, final_answer) and is_match_full:
-                        continue
+                    continue
                 else:
                     is_match_full = False
-                
+
             total_success.append(is_match_full)
             answers_store.append(answers)
             store_tools_answers.append(true_mols)
-            
-            add_answers([answers_store, store_tools_answers, total_success], './answers_exp3_1agent.xlsx')    
+
+            add_answers(
+                [answers_store, store_tools_answers, total_success],
+                "./answers_exp3_1agent.xlsx",
+            )
         except:
             req_error_cnt += 1
-            print('Someting went wrong (request), number of errors:', req_error_cnt)
+            print("Someting went wrong (request), number of errors:", req_error_cnt)
             total_success.append([])
             answers_store.append([])
             store_tools_answers.append([])
-            
-        

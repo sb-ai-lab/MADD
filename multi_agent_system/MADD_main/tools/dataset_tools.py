@@ -1,6 +1,8 @@
-from langchain.tools import tool
-import pandas as pd
 import os
+
+import pandas as pd
+from langchain.tools import tool
+
 
 @tool
 def filter_columns(path: str, drop_columns: list) -> str:
@@ -22,7 +24,7 @@ def filter_columns(path: str, drop_columns: list) -> str:
     if not os.path.exists(path):
         raise FileNotFoundError(f"Data file not found: {path}")
 
-    ext = path.split('.')[-1].lower()
+    ext = path.split(".")[-1].lower()
     if ext == "csv":
         df = pd.read_csv(path)
     elif ext in ["xls", "xlsx"]:

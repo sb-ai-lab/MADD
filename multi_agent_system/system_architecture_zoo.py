@@ -5,12 +5,16 @@ from langchain.agents import AgentExecutor, create_structured_chat_agent
 from langchain.chat_models.base import BaseChatModel
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.schema import HumanMessage, SystemMessage
-from langchain_core.prompts import (HumanMessagePromptTemplate,
-                                    SystemMessagePromptTemplate)
+from langchain_core.prompts import (
+    HumanMessagePromptTemplate,
+    SystemMessagePromptTemplate,
+)
 
 from multi_agent_system.prompting.prompting_two_agents import (
-    human_prompt, system_prompt_conductor_no_reflection,
-    system_prompt_decomposer)
+    human_prompt,
+    system_prompt_conductor_no_reflection,
+    system_prompt_decomposer,
+)
 
 
 class TwinsChain:

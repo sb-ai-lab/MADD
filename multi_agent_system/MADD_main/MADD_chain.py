@@ -20,16 +20,27 @@ from typing import Union
 
 import pandas as pd
 import yaml
-from agents import (ChatAgent, ConductorAgent, DecomposeAgent, SummaryAgent,
-                    ValidateAgent)
+from agents import (
+    ChatAgent,
+    ConductorAgent,
+    DecomposeAgent,
+    SummaryAgent,
+    ValidateAgent,
+)
 from memory import ChatMemory
-from prompting.props import props_descp_dict
 from prompting.props import enter, props_descp_dict, props_name
-from multi_agent_system.MADD_main.tools.tools import (gen_mols_acquired_drug_resistance, gen_mols_all_case,
-                   gen_mols_alzheimer, gen_mols_dyslipidemia,
-                   gen_mols_lung_cancer, gen_mols_multiple_sclerosis,
-                   gen_mols_parkinson, make_answer_chat_model,
-                   request_mols_generation)
+
+from multi_agent_system.MADD_main.tools.tools import (
+    gen_mols_acquired_drug_resistance,
+    gen_mols_all_case,
+    gen_mols_alzheimer,
+    gen_mols_dyslipidemia,
+    gen_mols_lung_cancer,
+    gen_mols_multiple_sclerosis,
+    gen_mols_parkinson,
+    make_answer_chat_model,
+    request_mols_generation,
+)
 
 TOTAL_QUERYS = 0
 
@@ -156,7 +167,9 @@ class Chain:
         with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
             self.conf = yaml.safe_load(file)
 
-    def rm_last_saved_file(self, dir: str = "multi_agent_system/MADD_main/vizualization/"):
+    def rm_last_saved_file(
+        self, dir: str = "multi_agent_system/MADD_main/vizualization/"
+    ):
         onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
 
         if onlyfiles != []:

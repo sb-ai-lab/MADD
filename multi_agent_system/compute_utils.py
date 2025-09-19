@@ -258,9 +258,11 @@ def exctrac_mols_and_props(mols: str) -> list:
 
 
 if __name__ == "__main__":
-    cond_per_tasks = compute_metrics("llama", "/home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx")
+    cond_per_tasks = compute_metrics(
+        "llama", "/home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx"
+    )
     # res = pd.read_excel("PATH").values.tolist()
-    
+
     # total_succ = 0
     # success_by_tasks = 0
     # empty_sample = 0

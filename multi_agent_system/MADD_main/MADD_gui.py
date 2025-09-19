@@ -1,22 +1,20 @@
-
+import os
 import re
 from datetime import datetime
 from os import listdir
-import os
 from os.path import isfile, join
 
 import gradio as gr
 import yaml
 
 # Initialize the chain with the proper key
-with open("multi_agent_system/MADD_main/config.yaml", "r")as file:
+with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
     config = yaml.safe_load(file)
-    os.environ['URL_PRED'] = config["URL_PRED"]
-    os.environ['URL_GEN'] = config["URL_GEN"]
-    
-# it must be here!!! 
-from multi_agent_system.MADD_main.MADD_chain import Chain
+    os.environ["URL_PRED"] = config["URL_PRED"]
+    os.environ["URL_GEN"] = config["URL_GEN"]
 
+# it must be here!!!
+from multi_agent_system.MADD_main.MADD_chain import Chain
 
 chain = Chain(
     conductor_model=config["conductor_model"],

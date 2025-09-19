@@ -1,11 +1,15 @@
 import json
 
 from prompting.metadata_tools_v2 import (
-    gen_mols_acquired_drug_resistance_metadata, gen_mols_alzheimer_metadata,
-    gen_mols_dyslipidemia_metadata, gen_mols_lung_cancer_metadata,
-    gen_mols_multiple_sclerosis_metadata, gen_mols_parkinson_metadata,
-    make_answer_chat_model_metadata, mols_gen_metadata,
-    mols_gen_total_metadata
+    gen_mols_acquired_drug_resistance_metadata,
+    gen_mols_alzheimer_metadata,
+    gen_mols_dyslipidemia_metadata,
+    gen_mols_lung_cancer_metadata,
+    gen_mols_multiple_sclerosis_metadata,
+    gen_mols_parkinson_metadata,
+    make_answer_chat_model_metadata,
+    mols_gen_metadata,
+    mols_gen_total_metadata,
 )
 
 INSTRUCT_TOOLS_LARGE = json.dumps(
@@ -31,7 +35,7 @@ INSTRUCT_TOOLS_LITTLE = json.dumps(
     separators=(",", ": "),
 )
 
-prompt_many_funcs = \
+prompt_many_funcs = (
     """
 You are a conductor with tool-calling capabilities.
 
@@ -84,4 +88,6 @@ You: {"name": "gen_mols_lung_cancer", "parameters": {"num": 2}}
 
 User: Generate highly potent non-covalent BTK tyrosine kinase inhibitors from the TEC family of tyrosine kinases that have the potential to affect B cells as a therapeutic target for the treatment of multiple sclerosis.  
 You: {"name": "gen_mols_multiple_sclerosis", "parameters": {"num": 1}}  
-""" + INSTRUCT_TOOLS_LARGE
+"""
+    + INSTRUCT_TOOLS_LARGE
+)
