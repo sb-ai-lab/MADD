@@ -304,23 +304,16 @@ def data_gathering_agent(state: dict, config: dict) -> Command:
     task = state["task"]
 
     agent = create_react_agent(
-        config["configurable"]["llm"],
+        config["llm"],
         [fetch_BindingDB_data, fetch_chembl_data],
-        state_modifier=ds_builder_prompt,
+        prompt=ds_builder_prompt,
         debug=True,
     )
     task_formatted = f"""\nYou are tasked with executing: {task}."""
 
     response = agent.invoke({"messages": [("user", task_formatted)]})
 
-    ds_paths = [
-        i
-        for i in [
-            os.environ.get("DS_FROM_USER", ""),
-            os.environ.get("DS_FROM_USER", ""),
-        ]
-        if i != ""
-    ]
+    ds_paths = [os.environ.get("DS_FROM_USER", "")]
 
     return Command(
         update={
