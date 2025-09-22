@@ -81,6 +81,25 @@ python multi_agent_system/MADD_main/MADD_gui.py
 * Running on local URL:  http://127.0.0.1:7869
 * Running on public URL: https://a52bd0e6373fef859d.gradio.live
 ```
+### Running DataGathering agent to download data from ChemBL and BindingDB
+To run it, you need to:
+1) Fill out _config.yaml_.
+2) Run next command in CLI:
+   
+```bash
+python multi_agent_system/MADD_main/run_data_gathering.py
+```
+3) Paste a query into the console, for example:
+```bash
+Download data from BindigDB for KRAS with IC50 values.
+```
+4) See where the downloaded file is located:
+```bash
+-----RESULT-----
+The function 'fetch_BindingDB_data' has been executed with the specified parameters.
+The output indicates that 142 entries for KRAS with IC50 values were found in BindingDB and saved
+to a file named 'molecules_KRAS.csv' in the 'multi_agent_system/MADD_main/data_from_chem_db' directory.
+```
 
 ### Running MADD on our benchmark
 To run it, you need to:
