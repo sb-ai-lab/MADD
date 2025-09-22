@@ -3,8 +3,16 @@ import operator
 import os
 from typing import Annotated
 import pandas as pd
-from dotenv import load_dotenv
-load_dotenv("config.env")
+import yaml
+with open("multi_agent_system/MADD_main/config.yaml", "r") as file:
+    config = yaml.safe_load(file)
+    os.environ["URL_PRED"] = config["URL_PRED"]
+    os.environ["URL_GEN"] = config["URL_GEN"]
+    os.environ["url"] = config["url"]
+    os.environ["conductor_model"] = config["conductor_model"]
+    os.environ["OPENAI_API_KEY"] = config["llama_api_key"]
+    os.environ["DS_FROM_USER"] = str(config["DS_FROM_USER"])
+
 from langgraph.prebuilt import create_react_agent
 from langgraph.types import Command
 
@@ -17,7 +25,7 @@ from multi_agent_system.MADD_main.tools.automl_tools import automl_tools
 from multi_agent_system.MADD_main.tools.data_gathering import fetch_BindingDB_data, fetch_chembl_data
 from multi_agent_system.MADD_main.tools.dataset_tools import filter_columns
 
-import yaml
+
 from langchain_core.prompts import PromptTemplate
 from langchain_ollama import ChatOllama
 from openai import OpenAI
@@ -89,10 +97,7 @@ def automl_agent(state: dict, config: dict) -> Command:
     print("--------------------------------")
 
     task = state["task"]
-    dataset = [os.environ['DS_FROM_BINDINGDB'] if not [os.environ['DS_FROM_CHEMBL'] 
-                                                       if not os.environ.get('DS_FROM_USER', False) 
-                                                       else os.environ.get('DS_FROM_USER', False)] 
-               else os.environ['DS_FROM_USER']]
+    dataset = [os.environ["DS_FROM_USER"]]
     if dataset != ['False']:
         if dataset[0][-3:] == 'csv':
             dataset_columns = pd.read_csv(dataset[0]).columns
@@ -180,7 +185,7 @@ def run_pipeline(ds_input = "data.csv"):
     config = {
         "configurable": {
             "llm": create_llm_connector(
-                f"{os.environ['MAIN_LLM_URL']};{os.environ['MAIN_LLM_MODEL']}",
+                f"{os.environ['url']};{os.environ['conductor_model']}",
                 temperature=0.0
             )
         }

@@ -316,8 +316,8 @@ def data_gathering_agent(state: dict, config: dict) -> Command:
     ds_paths = [
         i
         for i in [
-            os.environ.get("DS_FROM_CHEMBL", ""),
-            os.environ.get("DS_FROM_BINDINGDB", ""),
+            os.environ.get("DS_FROM_USER", ""),
+            os.environ.get("DS_FROM_USER", ""),
         ]
         if i != ""
     ]

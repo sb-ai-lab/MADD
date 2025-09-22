@@ -62,8 +62,6 @@ automl_prompt = f"""You have access to two types of generative models and to too
         1. Run 'get_case_state_from_server' with case name. For example: 'IC50_prediction'.
 
         Dataset for training from the user: {os.environ.get('DS_FROM_USER', False)} \n.
-        Dataset for training from ChemBL (from llm agent): {os.environ.get('DS_FROM_CHEMBL', False)} \n
-        Dataset for training from BindingDB (from llm agent): {os.environ.get('DS_FROM_BINDINGDB', False)} \n
         
         If you are asked about available predictive or generative models you should call get_state_from_server!!! And return list of case! 
         If you are asked to train a model, plan the training!
