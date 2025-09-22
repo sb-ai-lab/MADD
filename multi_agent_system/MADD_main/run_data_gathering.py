@@ -18,7 +18,8 @@ from multi_agent_system.MADD_main.agents import data_gathering_agent
     
 if __name__ =="__main__":
     state = {}
-    state["task"] = "Download data from BindigDB for KRAS with IC50 values."
+    # state["task"] = "Download data from BindigDB for KRAS with IC50 values."
+    state["task"] = str(input())
     res = data_gathering_agent(state, agent_conf)
     print('-----RESULT-----')
     print(list(res.update['past_steps'])[-1][-1])
