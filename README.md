@@ -103,6 +103,27 @@ The output indicates that 142 entries for KRAS with IC50 values were found in Bi
 to a file named 'molecules_KRAS.csv' in the 'multi_agent_system/MADD_main/data_from_chem_db' directory.
 ```
 
+### Running DataProcessing and AutoML agents on our benchmark
+To run it, you need to:
+1) Fill out _config.yaml_.
+2) Run next command in CLI:   
+```bash
+python multi_agent_system/MADD_main/run_automl.py
+```
+3) Paste a dataset absolute path, query for DataProcessing agent and then query for AutoML agent into the console, for example:
+```bash
+/home/user/projects/MADD/ds/data.csv
+Remove columns ['Unnamed: 0', 'Unnamed: 0.2', 'Unnamed: 0.1'] from dataset. Return path to cleaned dataset.
+Train predictive model (case Docking_score_pred) with ['docking_score'] as target columns and ['Smiles'] as feature columns.
+```
+4) Monitor the training process:
+```bash
+Agent output: The columns ['Unnamed: 0', 'Unnamed: 0.2', 'Unnamed: 0.1'] have been removed from the dataset. The cleaned dataset is located at /home/user/projects/MADD/ds/data_columns_filtered.csv.
+--------------------------------
+ml_dl agent called
+Train predictive model (case Docking_score_pred) with ['docking_score'] as target columns and ['Smiles'] as feature columns.. Dataset location is /home/user/projects/MADD/ds/data_columns_filtered.csv
+```
+
 ### Running MADD on our benchmark
 To run it, you need to:
 1) Fill out _config.yaml_ and specify the path to the dataset.

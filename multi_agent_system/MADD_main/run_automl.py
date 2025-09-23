@@ -180,7 +180,7 @@ def dataset_processing_agent(state: dict, config: dict) -> Command:
         }
     )
 
-def run_pipeline(ds_input = "data.csv"):
+def run_pipeline():
 
     config = {
         "configurable": {
@@ -190,11 +190,21 @@ def run_pipeline(ds_input = "data.csv"):
             )
         }
     }
+    print('Input user dataset location absolute path:')
+    ds_input = str(input())
+    print('Input query for DataProcessing agent')
+    processing_task = str(input())
+    print('Input query for AutoML agent')
+    automl_task = str(input())
 
     state_processing = {
-        "task": f"""Remove columns ['Unnamed: 0', 'Unnamed: 0.2', 'Unnamed: 0.1'] from dataset {ds_input}.
-        Return path to cleaned dataset."""
+        "task": f"""{processing_task}. Dataset location is {ds_input}"""
     }
+
+    # state_processing = {
+    #     "task": f"""Remove columns ['Unnamed: 0', 'Unnamed: 0.2', 'Unnamed: 0.1'] from dataset {ds_input}.
+    #     Return path to cleaned dataset."""
+    # }
 
     processing_result: Command = dataset_processing_agent(state_processing, config)
 
@@ -206,18 +216,18 @@ def run_pipeline(ds_input = "data.csv"):
 
     os.environ["DS_FROM_USER"] = cleaned_path
 
-    # state_automl = {
-    #     "task": f"Train predictive model (case Docking_score_pred) on {cleaned_path} with ['docking_score'] as target columns and ['Smiles'] as feature columns."
-    # }
+    state_automl = {
+        "task": f"{automl_task}. Dataset location is {cleaned_path}"
+    }
     # state_automl = {
     #     "task": f"Use generative model to generate molecule for case Docking_score_pred"
     # }
-    state_automl = {
-        "task": f"Use generative model from case Docking_score_pred to predict docking score traget column for this molecule CS(=O)(=O)Nc1ccc(CCNC(=O)c2ccnc3[nH]c(-c4cccs4)nc23)cc1 as feature column"
-    }
+    # state_automl = {
+    #     "task": f"Use generative model from case Docking_score_pred to predict docking score traget column for this molecule CS(=O)(=O)Nc1ccc(CCNC(=O)c2ccnc3[nH]c(-c4cccs4)nc23)cc1 as feature column"
+    # }
     automl_result: Command = automl_agent(state_automl, config)
 
     print(automl_result.update)
 
 if __name__ == "__main__":
-    run_pipeline(ds_input=os.environ["DS_FROM_USER"])
+    run_pipeline()

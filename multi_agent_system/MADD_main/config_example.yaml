@@ -10,7 +10,6 @@ prompt_type: 2
 url: https://openrouter.ai/api/v1
 validation_path: /home/alina/Desktop/LLMagentsBuilder/experiment2.xlsx
 
-# absolute path
 DS_FROM_USER: False
 
 # for automl 
