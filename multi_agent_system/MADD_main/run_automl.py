@@ -201,14 +201,17 @@ def run_pipeline(ds_input = "data.csv"):
     response_text = list(processing_result.update["past_steps"])[0][1]
     print("\nAgent output:", response_text)
 
-    cleaned_path = 'ds/data_columns_filtered.csv'
+    base_path, file_extension = os.path.splitext(ds_input)
+    cleaned_path = base_path + '_columns_filtered' + file_extension
 
     os.environ["DS_FROM_USER"] = cleaned_path
 
     state_automl = {
-        "task": f"Train predictive model on {cleaned_path} with IC50 as target and Smiles as feature column."
+        "task": f"Train predictive model (case Docking_score_pred) on {cleaned_path} with ['docking_score'] as target columns and ['Smiles'] as feature columns."
     }
-
+    # state_automl = {
+    #     "task": f"Use generative model from case Docking_score_pred to predict docking score traget column for this molecule CS(=O)(=O)Nc1ccc(CCNC(=O)c2ccnc3[nH]c(-c4cccs4)nc23)cc1 as feature column"
+    # }
     automl_result: Command = automl_agent(state_automl, config)
 
     print(automl_result.update)

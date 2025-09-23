@@ -611,7 +611,7 @@ def train_ml_with_data(
 def ml_dl_training(
     case: str,
     path: str,
-    feature_column=["canonical_smiles"],
+    feature_column=["smiles"],
     target_column=["docking_score"],
     regression_props=["docking_score"],
     classification_props=[],
@@ -908,7 +908,7 @@ def run_ml_dl_training_by_daemon(
         sys.executable,
         "-c",
         (
-            "from MADD.mas.tools.automl_tools import ml_dl_training;"
+            "from multi_agent_system.MADD_main.tools.automl_tools import ml_dl_training;"
             "ml_dl_training("
             f"case='{case}',"
             f"path='{path}',"
@@ -931,7 +931,7 @@ def run_ml_dl_training_by_daemon(
             stderr=open("/tmp/ml_training.err", "a"),
             cwd=cwd_path,
         )
-        time.sleep(5)
+        time.sleep(50)
         return True
     except Exception as e:
         print(f"Failed to start process: {e}", file=sys.stderr)
