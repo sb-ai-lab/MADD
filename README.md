@@ -11,7 +11,7 @@ A comprehensive platform for AI-driven drug discovery and cheminformatics resear
 
 ## 📦 Installation
 
-```bash
+```bash 
 git clone https://github.com/ITMO-NSS-team/MADD.git
 cd MADD
 pip install -e .
